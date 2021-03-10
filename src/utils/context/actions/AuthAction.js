@@ -80,3 +80,5 @@ class AuthAction {
     }
 
 }
+
+export default AuthAction

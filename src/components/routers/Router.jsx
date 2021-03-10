@@ -1,14 +1,15 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import DemoPage from '../pages/Demo_page'
-import Home from '../pages/Home'
+import NotFound from './../pages/404/index';
+import Home from './../pages/dashboard/Home';
+import URL from './../../utils/helpers/URL';
 
 export default function Router() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Home}></Route>
-                <Route exact path="/demo" component={DemoPage}></Route>
+                <Route exact path={URL.HOME} component={Home}></Route>
+                <Route default component={NotFound}></Route>
             </Switch>
         </BrowserRouter>
     )

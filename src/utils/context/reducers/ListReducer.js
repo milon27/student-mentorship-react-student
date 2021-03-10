@@ -12,8 +12,9 @@ const ListReducer = (state, action) => {
             //let objIndex = state.findIndex((obj => obj.id == action.payload.id));
             //state[objIndex] = action.payload;
             state = state.map(itm => {
-                if (itm.id === action.payload.id)
-                    return action.payload;
+                const id_field = action.payload.id_field
+                if (itm[id_field] === action.payload.obj[id_field])
+                    return action.payload.obj;
                 else
                     return itm;
             });

@@ -1,8 +1,9 @@
 import React from 'react'
-export default function DemoPage() {
+
+export default function Footer() {
     return (
         <div>
-            demo page
+
         </div>
     )
 }
