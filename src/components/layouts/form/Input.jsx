@@ -6,7 +6,7 @@ export default function Input({ title, value, name, onChange, disable = false, t
         <>
             <Form.Group>
                 <Form.Label>{title}</Form.Label>
-                <Form.Control name={name} type={type} placeholder={title} value={value} disabled={disable} onChange={onChange} />
+                <Form.Control name={name} type={type} placeholder={title} value={value} disabled={disable} onChange={onChange} required={true} />
             </Form.Group>
         </>
     )

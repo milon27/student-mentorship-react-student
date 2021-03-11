@@ -2,29 +2,39 @@ import axios from "axios"
 import Response from './../../helpers/Response';
 import Define from './../../helpers/Define';
 import Types from "./Types";
+import CUser from './../../helpers/CUser';
 
 class AuthAction {
     constructor(dispatch) {
         this.dispatch = dispatch
     }
+    //isLoggedIn
 
-    //is logged in or not ck
-    isLoggedIn = () => {
+    //Logout
+    Logout = () => {
+        //student/logout
         return new Promise(async (resolve, reject) => {
             try {
-                //hit api get response 
-                const res = await axios.get('student/is-loggedin')
-                const isLoggedInValue = res.data
-                this.dispatch({
-                    type: Types.AUTH_STATE,
-                    payload: isLoggedInValue
-                })
-                resolve(isLoggedInValue)
+                const res = await axios.get('student/logout')
+                const { error, message, response } = res.data
+                if (error) {
+                    reject(new Error(message))
+                } else {
+                    //logout success
+                    //remove from localstorage
+                    CUser.logOut()
+                    //update UI
+                    this.dispatch({
+                        type: Types.AUTH_LOGOUT
+                    })
+                    //resolve promise
+                    const response_ui = Response(true, "Logged Out Successful", message, Define.BT_SUCCESS, response)
+                    resolve(response_ui)
+                }
             } catch (e) {
-                //update UI or state
-                reject(false)
+                reject(new Error(e.message))
             }
-        })//end promise
+        })
     }
 
     //login student/user
@@ -38,6 +48,9 @@ class AuthAction {
                     reject(new Error(message))
                 } else {
                     //login success
+                    //save to localstorage
+                    delete response.token
+                    CUser.setCurrentuser(response)
                     //update UI
                     this.dispatch({
                         type: Types.AUTH_LOGIN,
@@ -64,6 +77,9 @@ class AuthAction {
                     reject(new Error(message))
                 } else {
                     //login success
+                    //save to localstorage
+                    delete response.token
+                    CUser.setCurrentuser(response)
                     //update UI
                     this.dispatch({
                         type: Types.AUTH_SIGNUP,

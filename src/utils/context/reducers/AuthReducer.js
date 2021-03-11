@@ -7,7 +7,8 @@ export const initAuthState = {
     name: "",
     phone: "",
     photo_url: "",
-    is_logged_in: false,
+    present_address: "",
+    parents_phone: ""
 }
 
 const AuthReducer = (state, action) => {
@@ -17,9 +18,8 @@ const AuthReducer = (state, action) => {
     } else if (action.type === Types.AUTH_SIGNUP) {
         let newUser = action.payload//get user object
         return { ...newUser }
-    } else if (action.type === Types.AUTH_STATE) {
-        let isLoggedIn = action.payload//get boolean value (logged in or not)
-        return { ...state, is_logged_in: isLoggedIn }
+    } else if (action.type === Types.AUTH_LOGOUT) {
+        return { ...initAuthState }
     } else {
         return state
     }
