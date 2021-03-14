@@ -11,6 +11,7 @@ import AppAction from './../../../utils/context/actions/AppAction';
 import AuthAction from './../../../utils/context/actions/AuthAction';
 import Response from './../../../utils/helpers/Response';
 import CUser from './../../../utils/helpers/CUser';
+import logo from '../../../assets/img/logo.webp'
 
 export default function SignUp() {
     const history = useHistory()
@@ -73,8 +74,14 @@ export default function SignUp() {
     return (
         <div className="auth">
             <div className="inner">
-                <div>
-                    <h3>Register as a Student</h3>
+
+                <div className="d-flex flex-column">
+                    <div className="d-flex justify-content-center mb-2">
+                        <img src={logo} width={50} alt="" />
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <h3>Register as a Student</h3>
+                    </div>
                 </div>
 
                 <form onSubmit={onSubmit}>

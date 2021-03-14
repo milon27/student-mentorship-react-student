@@ -7,6 +7,6 @@ const Define = {
     BT_INFO: "info",
     //define
     NOT_SET: "NOT_SET",
-    C_USER: "C_USER",
+    C_USER: "STU_C_USER",
 }
 export default Define

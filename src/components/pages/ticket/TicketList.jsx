@@ -1,14 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Main from '../../layouts/dashborad/Main';
 import ProtectedPage from './../../layouts/ProtectedPage';
 
-
-export default function Home() {
+export default function TicketList() {
     return (
         <ProtectedPage>
             <Main>
-                <h3>Dashboard</h3>
-
+                <h3>Ticket List</h3>
             </Main>
         </ProtectedPage>
     )

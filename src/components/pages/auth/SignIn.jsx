@@ -11,6 +11,7 @@ import AppAction from './../../../utils/context/actions/AppAction';
 import AuthAction from './../../../utils/context/actions/AuthAction';
 import Response from './../../../utils/helpers/Response';
 import CUser from './../../../utils/helpers/CUser';
+import logo from '../../../assets/img/logo.webp'
 
 export default function SignIn() {
     const history = useHistory()
@@ -52,6 +53,7 @@ export default function SignIn() {
 
     // check alrady logged in or not
     if (CUser.isLoggedIn()) {
+        console.log("try to redirect")
         return <Redirect to={URL.HOME}></Redirect>
     }
 
@@ -59,8 +61,13 @@ export default function SignIn() {
         <>
             <div className="auth">
                 <div className="inner">
-                    <div>
-                        <h3>Sign In as a Student</h3>
+                    <div className="d-flex flex-column">
+                        <div className="d-flex justify-content-center mb-2">
+                            <img src={logo} width={50} alt="" />
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            <h3>Sign In as a Student</h3>
+                        </div>
                     </div>
 
                     <form onSubmit={onSubmit}>
