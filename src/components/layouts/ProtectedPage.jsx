@@ -17,7 +17,13 @@ export default function ProtectedPage({ children }) {
                     CUser.logOut()
                     setAuthV(false)
                 } else {
-                    setAuthV(true)
+                    console.log("user from localstore: ", CUser.getCurrentuser())
+                    if (CUser.getCurrentuser() === undefined) {
+                        setAuthV(false)
+                    } else {
+                        setAuthV(true)
+                    }
+
                 }
                 setLoading(false)
 

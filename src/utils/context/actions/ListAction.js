@@ -8,8 +8,8 @@ class ListAction {
         this.dispatch = dispatch;
     }
     getSource = () => {
-        this.#source = axios.CancelToken.source();
-        return this.#source
+        this.source = axios.CancelToken.source();
+        return this.source
     }//return token to cancel the request
 
     //get all data
@@ -17,7 +17,7 @@ class ListAction {
         return new Promise((resolve, reject) => {
             axios.get(`${url}`
                 , {
-                    cancelToken: this.#source.token
+                    cancelToken: this.source.token
                 }
             ).then(res => {
                 const { error, message, response } = res.data
@@ -48,7 +48,7 @@ class ListAction {
                     //dispatch the global state
                     this.dispatch({
                         type: Types.ADD_DATA,
-                        payload: response//a newly created object 
+                        payload: response//a newly created object
                     });
                     resolve(Response(true, "success", message, Define.BT_SUCCESS, response));
                 } else {//error

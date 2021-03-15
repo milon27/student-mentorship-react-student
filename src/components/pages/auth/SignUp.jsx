@@ -57,7 +57,7 @@ export default function SignUp() {
             history.push(URL.HOME)
         } catch (e) {
             app.SET_RESPONSE(Response(false, "SignUP failed.", e.message, Define.BT_DANGER))
-            app.START_LOADING()
+            app.STOP_LOADING()
         }
     }
     const onChange = (e) => {

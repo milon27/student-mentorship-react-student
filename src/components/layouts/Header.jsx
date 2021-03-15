@@ -5,12 +5,8 @@ import AuthAction from './../../utils/context/actions/AuthAction';
 import URL from './../../utils/helpers/URL';
 import CUser from './../../utils/helpers/CUser';
 import { DispatchContext } from '../../utils/context/MainContext';
-import { Button } from 'react-bootstrap'
 
-
-export default function Header() {
-
-
+export default function Header({ title }) {
 
     const history = useHistory()
     const { authDispatch } = useContext(DispatchContext)
@@ -34,8 +30,12 @@ export default function Header() {
                 <i className="fa fa-bars"></i>
             </button>
 
+            <h3>{title}</h3>
+
             {/* <!-- Topbar Navbar --> */}
             <ul className="navbar-nav ml-auto">
+
+
 
                 {/* <!-- Nav Item - User Information --> */}
                 <li className="nav-item dropdown no-arrow">

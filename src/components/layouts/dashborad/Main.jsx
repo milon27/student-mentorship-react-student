@@ -3,7 +3,10 @@ import ContentWrapper from './ContentWrapper'
 import Sidebar from './Sidebar'
 import LogoutModal from './LogoutModal';
 
-export default function Main({ children }) {
+export default function Main({ children, title }) {
+    // Main-> Content Wrapper -> Header
+    // Main-> Siderbar
+    // Main-> Footer
     return (
         <div>
             {/* <!-- content start --> */}
@@ -14,7 +17,7 @@ export default function Main({ children }) {
                 <Sidebar />
                 {/* <!-- EndofSidebar --> */}
                 {/* <!-- Content Wrapper --> */}
-                <ContentWrapper >
+                <ContentWrapper title={title}>
                     {children}
                 </ContentWrapper>
                 {/* <!-- End of Content Wrapper --> */}

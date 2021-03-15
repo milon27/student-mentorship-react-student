@@ -44,7 +44,7 @@ export default function SignIn() {
             history.push(URL.HOME)
         } catch (e) {
             app.SET_RESPONSE(Response(false, "Sign In failed.", e.message, Define.BT_DANGER))
-            app.START_LOADING()
+            app.STOP_LOADING()
         }
     }
     const onChange = (e) => {
@@ -52,8 +52,8 @@ export default function SignIn() {
     }
 
     // check alrady logged in or not
+    // console.log(CUser.isLoggedIn())
     if (CUser.isLoggedIn()) {
-        console.log("try to redirect")
         return <Redirect to={URL.HOME}></Redirect>
     }
 

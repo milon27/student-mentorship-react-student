@@ -4,6 +4,8 @@ const CUser = {
     getCurrentuser: () => {
         if (localStorage.getItem(Define.C_USER)) {
             return JSON.parse(localStorage.getItem(Define.C_USER))
+        } else {
+            return undefined
         }
     },//return a student object
     setCurrentuser: (user) => {
