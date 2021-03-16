@@ -42,8 +42,11 @@ export default function TicketList() {
     useEffect(() => {
         const listAction = new ListAction(ticket_listDispatch)
         const token = listAction.getSource()
+        const uid = CUser.getCurrentuser() && CUser.getCurrentuser().student_id
         const load = async () => {
-            const res = await listAction.getAll(`support/get/ticket/student_id/${CUser.getCurrentuser().student_id}/${page}`)
+            if (uid) {
+                const res = await listAction.getAll(`support/get/ticket/student_id/${uid}/${page}`)
+            }
         }
         load()
         //clean up

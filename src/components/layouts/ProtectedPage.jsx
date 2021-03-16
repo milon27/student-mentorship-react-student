@@ -17,12 +17,17 @@ export default function ProtectedPage({ children }) {
                     CUser.logOut()
                     setAuthV(false)
                 } else {
-                    console.log("user from localstore: ", CUser.getCurrentuser())
-                    if (CUser.getCurrentuser() === undefined) {
-                        setAuthV(false)
-                    } else {
+                    if (CUser.getCurrentuser() && CUser.getCurrentuser() !== undefined) {
                         setAuthV(true)
+                    } else {
+                        CUser.logOut()
+                        setAuthV(false)
                     }
+                    // if (CUser.getCurrentuser() === undefined) {
+
+                    // } else {
+
+                    // }
 
                 }
                 setLoading(false)

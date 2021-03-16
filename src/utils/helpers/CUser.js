@@ -1,16 +1,17 @@
 import Define from "./Define"
 
 const CUser = {
+    setCurrentuser: (user) => {
+        localStorage.setItem(Define.C_USER, JSON.stringify(user))
+    },
     getCurrentuser: () => {
-        if (localStorage.getItem(Define.C_USER)) {
+        if (localStorage.getItem(Define.C_USER) !== null) {
             return JSON.parse(localStorage.getItem(Define.C_USER))
         } else {
             return undefined
         }
     },//return a student object
-    setCurrentuser: (user) => {
-        localStorage.setItem(Define.C_USER, JSON.stringify(user))
-    },
+
     isLoggedIn: () => {
         if (localStorage.getItem(Define.C_USER)) {
             const user = JSON.parse(localStorage.getItem(Define.C_USER))

@@ -3,7 +3,10 @@ import MainContext from "./utils/context/MainContext";
 import axios from 'axios'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import './assets/css/style.min.css';
 import './index.css';
+
 
 //setup axios
 axios.defaults.baseURL = "http://localhost:2727/"

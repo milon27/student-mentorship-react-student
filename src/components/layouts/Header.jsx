@@ -12,10 +12,13 @@ export default function Header({ title }) {
     const { authDispatch } = useContext(DispatchContext)
 
     const logout = async (e) => {
-        await new AuthAction(authDispatch).Logout()
-        history.push(URL.SIGN_IN)
+        try {
+            await new AuthAction(authDispatch).Logout()
+            history.push(URL.SIGN_IN)
+        } catch (e) {
+            history.push(URL.SIGN_IN)
+        }
     }
-    // console.log(CUser.getCurrentuser());
 
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">

@@ -13,9 +13,8 @@ export default function TicketModel({ show, setShow }) {
     const { app } = useContext(StateContext)
     const { appDispatch, ticket_listDispatch } = useContext(DispatchContext)
 
-
     const initTicket = {
-        student_id: CUser.getCurrentuser().student_id,
+        student_id: CUser.getCurrentuser() && CUser.getCurrentuser().student_id,
         ticket_title: "",
         ticket_dept: Define.TICKET_DEPT_AO,
         message: ""

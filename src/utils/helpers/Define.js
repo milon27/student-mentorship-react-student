@@ -7,6 +7,7 @@ const Define = {
     BT_INFO: "info",
     //ticket dept
     TICKET_DEPT_AO: "CSE_AO",
+    TICKET_PENDING: "pending",
     TICKET_PAGE_SIZE: 10,
     //define
     NOT_SET: "NOT_SET",

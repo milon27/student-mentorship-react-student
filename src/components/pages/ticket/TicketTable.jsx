@@ -1,15 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
+import URL from '../../../utils/helpers/URL'
+import Define from './../../../utils/helpers/Define';
 
 
 export default function TicketTable({ ticket_list }) {
-    const onView = (e) => {
 
-        if (e.target.tagName === "SPAN") {
-            console.log(e.target.tagName);
-            alert("--" + e.target.id)
-        }
-    }
     return (
         <div>
             {ticket_list.length > 0 ? <>
@@ -23,7 +20,7 @@ export default function TicketTable({ ticket_list }) {
                             <th>Option</th>
                         </tr>
                     </thead>
-                    <tbody onClick={onView}>
+                    <tbody >
                         {ticket_list.map(item => {
                             return (
                                 <tr key={item.id}>
@@ -31,7 +28,7 @@ export default function TicketTable({ ticket_list }) {
                                     <td>{item.ticket_title}</td>
                                     <td>{item.ticket_state}</td>
                                     <td>{item.created_at}</td>
-                                    <td><span id={item.id} >View </span></td>
+                                    <td>{item.ticket_state === Define.TICKET_PENDING ? <>Waiting</> : <Link to={URL.TICKET_LIST + "/" + item.id} >View </Link>}</td>
                                 </tr>
                             )
                         })}

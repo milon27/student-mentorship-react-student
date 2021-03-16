@@ -10,13 +10,14 @@ export default function MainContext(props) {
     const [auth, authDispatch] = useReducer(AuthReducer, initAuthState);//for student auth
     const [app, appDispatch] = useReducer(AppReducer, initAppState);//for app state
     const [ticket_list, ticket_listDispatch] = useReducer(ListReducer, initListState);//for any kind of list
+    const [chats, chatsDispatch] = useReducer(ListReducer, initListState);//for any kind of list
 
 
     const global_state = {
-        auth, app, ticket_list
+        auth, app, ticket_list, chats
     }
     const global_dispatch = {
-        authDispatch, appDispatch, ticket_listDispatch
+        authDispatch, appDispatch, ticket_listDispatch, chatsDispatch
     }
 
     return (

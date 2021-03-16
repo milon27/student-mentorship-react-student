@@ -54,6 +54,12 @@
   .m-only{
     display: flex!important; 
   }
+
+  /* height for mobile */
+  .height-overflow-y{
+    height: 50vh;
+    overflow-y: scroll;
+  } 
 }
 /* ---------------------------------------------------------------------------- */
 /* desktop only  */
@@ -64,4 +70,10 @@
   .m-only{
     display: none!important; 
   }
+  /* height for desktop */
+  .height-overflow-y{
+    height: 60vh;
+    overflow-y: scroll;
+  } 
+
 }
