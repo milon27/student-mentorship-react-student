@@ -17,16 +17,13 @@ export default function SingleTicket({ match }) {
     const { chatsDispatch } = useContext(DispatchContext)
 
     //local state
+    const [ticket, setTicket] = useState({})
     const [message, setMessage] = useState("")
 
     const history = useHistory()
 
     //load chat list
     useEffect(() => {
-
-
-
-
         const listAction = new ListAction(chatsDispatch)
         const token = listAction.getSource()
         const load = async () => {
@@ -35,6 +32,7 @@ export default function SingleTicket({ match }) {
             const ticket = ticketRes.data
             //console.log(ticket)
             if (!ticket.error && ticket.response.ticket_state !== Define.TICKET_PENDING) {
+                setTicket(ticket.response)
                 //if valid then load chats
                 const res = await listAction.getAll(`support/get/ticket_chat/ticket_id/${match.params.id}/`)
                 //console.log(res, chats);
@@ -79,9 +77,9 @@ export default function SingleTicket({ match }) {
                         {/* <!-- Panel Chat --> */}
                         <div className="panel" id="chat">
                             <div className="panel-heading">
-                                <h3 className="panel-title">
-                                    Ticket Title
-                                    </h3>
+                                <h4 className="panel-title text-primary">
+                                    Ticket Title: {ticket.ticket_title}
+                                </h4>
                             </div>
                             <div className="panel-body">
                                 <div className="chats height-overflow-y" >
