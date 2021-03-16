@@ -17,7 +17,18 @@ export default function ProtectedPage({ children }) {
                     CUser.logOut()
                     setAuthV(false)
                 } else {
-                    setAuthV(true)
+                    if (CUser.getCurrentuser() && CUser.getCurrentuser() !== undefined) {
+                        setAuthV(true)
+                    } else {
+                        CUser.logOut()
+                        setAuthV(false)
+                    }
+                    // if (CUser.getCurrentuser() === undefined) {
+
+                    // } else {
+
+                    // }
+
                 }
                 setLoading(false)
 

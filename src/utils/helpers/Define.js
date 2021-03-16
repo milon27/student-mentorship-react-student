@@ -5,8 +5,12 @@ const Define = {
     BT_SUCCESS: "success",
     BT_WARNING: "warning",
     BT_INFO: "info",
+    //ticket dept
+    TICKET_DEPT_AO: "CSE_AO",
+    TICKET_PENDING: "pending",
+    TICKET_PAGE_SIZE: 10,
     //define
     NOT_SET: "NOT_SET",
-    C_USER: "C_USER",
+    C_USER: "STU_C_USER",
 }
 export default Define

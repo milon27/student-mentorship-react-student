@@ -1,3 +1,19 @@
+/* bootstrap */
+.bg-primary{
+  background-color: #0F243C!important;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #0F243C;
+	border-color: #0F243C;
+}
+
+.text-primary {
+	color: #0F243C !important;
+}
+
+/* loader */
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -19,6 +35,16 @@
   100% { transform: rotate(360deg); }
 }
 
+/* menu active */
+.nav-link.active i,.sidebar-dark .nav-item .nav-link{
+    color: #FFF!important;
+}
+.nav-link.active{
+    color: #FFF!important;
+    font-weight: bold;
+}
+
+
 /* ---------------------------------------------------------------------------- */
 /* mobile only  */
 @media (max-width:768px){
@@ -28,6 +54,12 @@
   .m-only{
     display: flex!important; 
   }
+
+  /* height for mobile */
+  .height-overflow-y{
+    height: 50vh;
+    overflow-y: scroll;
+  } 
 }
 /* ---------------------------------------------------------------------------- */
 /* desktop only  */
@@ -38,4 +70,10 @@
   .m-only{
     display: none!important; 
   }
+  /* height for desktop */
+  .height-overflow-y{
+    height: 60vh;
+    overflow-y: scroll;
+  } 
+
 }
