@@ -40,15 +40,21 @@ export default function TicketList() {
 
     //load data
     useEffect(() => {
+
         const listAction = new ListAction(ticket_listDispatch)
         const token = listAction.getSource()
-        const uid = CUser.getCurrentuser() && CUser.getCurrentuser().student_id
-        const load = async () => {
-            if (uid) {
-                const res = await listAction.getAll(`support/get/ticket/student_id/${uid}/${page}`)
+        try {
+            const uid = CUser.getCurrentuser() && CUser.getCurrentuser().student_id
+            const load = async () => {
+                if (uid) {
+                    const res = await listAction.getAll(`support/get/ticket/student_id/${uid}/${page}`)
+                }
             }
+            load()
+        } catch (e) {
+            console.log(e)
         }
-        load()
+
         //clean up
         return () => {
             token.cancel()
@@ -70,6 +76,7 @@ export default function TicketList() {
                 <Row >
                     <Col className="d-flex justify-content-start mb-3">
                         <Button className="mr-2" onClick={prev}>Prev</Button>
+                        <Button className="mr-2" disabled>{page}</Button>
                         <Button className="mr-2" onClick={next}>Next</Button>
                     </Col>
                     <Col className="d-flex justify-content-end mb-3">

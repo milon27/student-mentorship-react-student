@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 import URL from '../../../utils/helpers/URL'
 import Define from './../../../utils/helpers/Define';
+import moment from 'moment';
 
 
 export default function TicketTable({ ticket_list }) {
@@ -27,8 +28,8 @@ export default function TicketTable({ ticket_list }) {
                                     <td>{item.id}</td>
                                     <td>{item.ticket_title}</td>
                                     <td>{item.ticket_state}</td>
-                                    <td>{item.created_at}</td>
-                                    <td>{item.ticket_state === Define.TICKET_PENDING ? <>Waiting</> : <Link to={URL.TICKET_LIST + "/" + item.id} >View </Link>}</td>
+                                    <td>{moment(item.created_at).format(Define.FORMAT_DATE)}</td>
+                                    <td>{(item.ticket_state !== Define.TICKET_PPROCESSING && item.ticket_state !== Define.TICKET_SNOOZED) ? <>Waiting</> : <Link to={URL.TICKET_LIST + "/" + item.id} >View </Link>}</td>
                                 </tr>
                             )
                         })}

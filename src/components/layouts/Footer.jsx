@@ -5,7 +5,7 @@ export default function Footer() {
         <footer className="sticky-footer bg-light">
             <div className="container my-auto">
                 <div className="copyright text-center my-auto">
-                    <span>Copyright &copy; 2021 <a href="https://m27lab.com/">m27lab.com</a> - Developed by <a href="https://milon27.web.app/">milon27</a></span>
+                    <span>Copyright &copy; 2021 <a href="http://cse.iubat.edu/">IUBAT-CSE</a> </span>
                 </div>
             </div>
         </footer>

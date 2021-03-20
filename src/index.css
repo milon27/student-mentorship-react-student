@@ -44,6 +44,11 @@
     font-weight: bold;
 }
 
+/* icon with image */
+  .icon_width{
+    width: 40px;
+  }
+
 
 /* ---------------------------------------------------------------------------- */
 /* mobile only  */

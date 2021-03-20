@@ -13,7 +13,7 @@ export default function Sidebar() {
                     <div className="sidebar-brand-icon rotate-n-15">
                         <img src={logo} style={{ width: "50px", height: "50px", border: "3px solid white", borderRadius: "50%" }} alt="" />
                     </div>
-                    <div className="sidebar-brand-text mx-3"><sup>Student Panel</sup></div>
+                    <div className="sidebar-brand-text mx-3">Student</div>
                 </a>
                 {/* <!-- Divider --> */}
                 <hr className="sidebar-divider my-0" />
@@ -51,9 +51,14 @@ export default function Sidebar() {
                         </div>
                     </div>
                 </li> */}
-
-
                 <hr className="sidebar-divider d-none d-md-block" />
+
+                <li className="nav-item ">
+                    <NavLink exact activeClassName="active" className="nav-link" to={URL.CONTRIBUTOR}>
+                        <i className="fas fa-fw fa-award"></i>
+                        <span>Contributor List</span>
+                    </NavLink>
+                </li>
 
                 {/* <!-- Sidebar Toggler (Sidebar) --> */}
                 <div className="text-center d-none d-md-inline mt-2">

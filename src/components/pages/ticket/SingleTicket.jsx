@@ -11,6 +11,8 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import URL from '../../../utils/helpers/URL';
 import Define from './../../../utils/helpers/Define';
+import { Card, Col, Row } from 'react-bootstrap';
+import moment from 'moment';
 
 export default function SingleTicket({ match }) {
     const { chats } = useContext(StateContext)
@@ -26,21 +28,26 @@ export default function SingleTicket({ match }) {
     useEffect(() => {
         const listAction = new ListAction(chatsDispatch)
         const token = listAction.getSource()
-        const load = async () => {
-            //load the ticket first
-            const ticketRes = await axios.get(`support/get-one/ticket/id/${match.params.id}/`)
-            const ticket = ticketRes.data
-            //console.log(ticket)
-            if (!ticket.error && ticket.response.ticket_state !== Define.TICKET_PENDING) {
-                setTicket(ticket.response)
-                //if valid then load chats
-                const res = await listAction.getAll(`support/get/ticket_chat/ticket_id/${match.params.id}/`)
-                //console.log(res, chats);
-            } else {
-                history.push(URL.TICKET_LIST)
+        try {
+
+            const load = async () => {
+                //load the ticket first
+                const ticketRes = await axios.get(`support/get-one/ticket/id/${match.params.id}/`)
+                const ticket = ticketRes.data
+                //console.log(ticket)
+                if (!ticket.error && (ticket.response.ticket_state === Define.TICKET_PPROCESSING || ticket.response.ticket_state === Define.TICKET_SNOOZED)) {
+                    setTicket(ticket.response)
+                    //if valid then load chats
+                    const res = await listAction.getAll(`support/get/ticket_chat/ticket_id/${match.params.id}/`)
+                    //console.log(res, chats);
+                } else {
+                    history.push(URL.TICKET_LIST)
+                }
             }
+            load()
+        } catch (e) {
+            console.log(e);
         }
-        load()
 
         //clean up
         return () => {
@@ -68,57 +75,74 @@ export default function SingleTicket({ match }) {
         //console.log(res)
     }
 
+    let classname = ticket.ticket_state !== Define.TICKET_SNOOZED ? "col-md-12" : "col-md-9"
+
     return (
         <>
             <ProtectedPage>
                 <Main title={`Ticket No- ${match.params.id}`}>
+                    <Row>
 
-                    <div className="col-md-12 col-xs-12">
-                        {/* <!-- Panel Chat --> */}
-                        <div className="panel" id="chat">
-                            <div className="panel-heading">
-                                <h4 className="panel-title text-primary">
-                                    Ticket Title: {ticket.ticket_title}
-                                </h4>
-                            </div>
-                            <div className="panel-body">
-                                <div className="chats height-overflow-y" >
-                                    {chats.length > 0 && [].concat(chats).reverse().map(chat => {
-                                        //
-                                        const classV = (chat.sender_id === (CUser.getCurrentuser() && CUser.getCurrentuser().student_id)) ? "chat" : "chat chat-left"
+                        <div className={`${classname} col-xs-12`}>
+                            {/* <!-- Panel Chat --> */}
+                            <div className="panel" id="chat">
+                                <div className="panel-heading">
+                                    <h4 className="panel-title text-primary">
+                                        Ticket Title: {ticket.ticket_title}
+                                    </h4>
+                                </div>
+                                <div className="panel-body">
+                                    <div className="chats height-overflow-y" >
+                                        {chats.length > 0 && [].concat(chats).reverse().map(chat => {
+                                            //
+                                            const classV = (chat.sender_id === (CUser.getCurrentuser() && CUser.getCurrentuser().student_id)) ? "chat" : "chat chat-left"
 
-                                        return <div key={chat.id} className={classV}>
-                                            <div className="chat-avatar">
-                                                <a className="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher">
-                                                    {/* <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" /> */}
-                                                    <i className="fas fa-user-circle text-primary " style={{ fontSize: '32px' }}></i>
-                                                </a>
-                                            </div>
-                                            <div className="chat-body">
-                                                <div className="chat-content">
-                                                    <p>{chat.message}</p>
-                                                    <time className="chat-time" dateTime="2015-07-01T11:39">{chat.created_at}</time>
+                                            return <div key={chat.id} className={classV}>
+                                                <div className="chat-avatar">
+                                                    <a className="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher">
+                                                        {/* <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" /> */}
+                                                        <i className="fas fa-user-circle text-primary " style={{ fontSize: '32px' }}></i>
+                                                    </a>
+                                                </div>
+                                                <div className="chat-body">
+                                                    <div className="chat-content">
+                                                        <p>{chat.message}</p>
+                                                        <time className="chat-time" dateTime="2015-07-01T11:39">{chat.created_at}</time>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    })}
+                                        })}
 
+                                    </div>
+                                </div>
+
+                                <div className="panel-footer">
+                                    <form>
+                                        <div className="input-group">
+                                            <input type="text" className="form-control" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write Message..." disabled={ticket.ticket_state === Define.TICKET_PPROCESSING ? false : true} />
+                                            <span className="input-group-btn">
+                                                <button onClick={addNew} className="btn btn-primary ml-2" type="button">Send</button>
+                                            </span>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-                            <div className="panel-footer">
-                                <form>
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write Message..." />
-                                        <span className="input-group-btn">
-                                            <button onClick={addNew} className="btn btn-primary ml-2" type="button">Send</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
+                            {/* <!-- End Panel Chat --> */}
                         </div>
-                        {/* <!-- End Panel Chat --> */}
-                    </div>
+
+                        {ticket.ticket_state === Define.TICKET_SNOOZED &&
+                            <div className="col-md-3 col-xs-12">
+                                <Card className="mb-3" style={{ width: '100%' }}>
+                                    <Card.Body>
+                                        <Card.Text>
+                                            <b>Snoozed Reason</b>: {ticket.reschedule_reason}<br />
+                                            <b>Snoozed Date</b>: {moment(ticket.reschedule_date).format(Define.FORMAT_DATE)}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                        }
+                    </Row>
                 </Main>
             </ProtectedPage>
         </>
