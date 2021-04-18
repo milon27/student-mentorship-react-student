@@ -11,7 +11,7 @@ export default function TicketTable({ ticket_list }) {
     return (
         <div>
             {ticket_list.length > 0 ? <>
-                <Table striped bordered hover>
+                <Table striped bordered hover responsive>
                     <thead>
                         <tr>
                             <th>ID#</th>

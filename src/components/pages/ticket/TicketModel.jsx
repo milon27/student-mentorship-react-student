@@ -4,13 +4,13 @@ import MyModal from '../../layouts/modal/MyModal'
 import Define from './../../../utils/helpers/Define';
 import CUser from './../../../utils/helpers/CUser';
 import Helper from '../../../utils/helpers/Helper';
-import { DispatchContext, StateContext } from './../../../utils/context/MainContext';
+import { DispatchContext } from './../../../utils/context/MainContext';
 import AppAction from './../../../utils/context/actions/AppAction';
 import Response from './../../../utils/helpers/Response';
 import ListAction from './../../../utils/context/actions/ListAction';
 
 export default function TicketModel({ show, setShow }) {
-    const { app } = useContext(StateContext)
+
     const { appDispatch, ticket_listDispatch } = useContext(DispatchContext)
 
     const initTicket = {
@@ -20,8 +20,6 @@ export default function TicketModel({ show, setShow }) {
         message: ""
     }
     const [ticket, setTicket] = useState(initTicket)
-
-
 
     const onSubmit = async () => {
         //hide the modal

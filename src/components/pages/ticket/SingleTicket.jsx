@@ -1,33 +1,44 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Main from '../../layouts/dashborad/Main'
 import ProtectedPage from '../../layouts/ProtectedPage'
 
 import '../../../assets/css/chat.css'
 
-import ListAction from './../../../utils/context/actions/ListAction';
-import { DispatchContext, StateContext } from './../../../utils/context/MainContext';
 import CUser from './../../../utils/helpers/CUser';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import URL from '../../../utils/helpers/URL';
 import Define from './../../../utils/helpers/Define';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Row } from 'react-bootstrap';
 import moment from 'moment';
+import useTicketSocket from './../../../utils/hooks/useTicketSocket';
 
 export default function SingleTicket({ match }) {
-    const { chats } = useContext(StateContext)
-    const { chatsDispatch } = useContext(DispatchContext)
+    const bottomInit = useRef()
+    const bottom = useRef()
 
     //local state
     const [ticket, setTicket] = useState({})
     const [message, setMessage] = useState("")
+    const [chats, setChats, joinTicket, createMessage] = useTicketSocket()
 
     const history = useHistory()
 
+    //init the socket
+    //init the socket
+    useEffect(() => {
+        if (ticket)
+            //join the socket 
+            joinTicket(ticket)
+    }, [ticket])
+
+    useEffect(() => {
+        bottom?.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+    }, [chats.length])
+
+
     //load chat list
     useEffect(() => {
-        const listAction = new ListAction(chatsDispatch)
-        const token = listAction.getSource()
         try {
 
             const load = async () => {
@@ -38,8 +49,10 @@ export default function SingleTicket({ match }) {
                 if (!ticket.error && (ticket.response.ticket_state === Define.TICKET_PPROCESSING || ticket.response.ticket_state === Define.TICKET_SNOOZED)) {
                     setTicket(ticket.response)
                     //if valid then load chats
-                    const res = await listAction.getAll(`support/get/ticket_chat/ticket_id/${match.params.id}/`)
-                    //console.log(res, chats);
+                    const res = await axios.get(`support/get/ticket_chat/ticket_id/${match.params.id}/`)
+                    setChats([...res.data.response])
+                    //console.log(res, res);
+                    bottomInit.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
                 } else {
                     history.push(URL.TICKET_LIST)
                 }
@@ -49,12 +62,7 @@ export default function SingleTicket({ match }) {
             console.log(e);
         }
 
-        //clean up
-        return () => {
-            token.cancel()
-        }
-
-    }, [chats.length])//chats.length
+    }, [])//chats.length
 
     //add new chat
     const addNew = async () => {
@@ -62,16 +70,21 @@ export default function SingleTicket({ match }) {
         if (!message && message === "") {
             return
         }
-
         const chatObj = {
             sender_id: CUser.getCurrentuser() && CUser.getCurrentuser().student_id,
             message: message,
-            ticket_id: match.params.id
+            ticket_id: match.params.id,
+            created_at: moment(new Date()).format()
         }
 
+        //created_at: new Date()
+        chatObj.id = new Date().getTime()
+        createMessage(chatObj)
 
-        const listAction = new ListAction(chatsDispatch)
-        const res = await listAction.addData('support/create-message', chatObj)
+        //const listAction = new ListAction(chatsDispatch)
+        //const res = await listAction.addData('support/create-message', chatObj)
+        setMessage("")
+        //bottom.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
         //console.log(res)
     }
 
@@ -97,7 +110,7 @@ export default function SingleTicket({ match }) {
                                             //
                                             const classV = (chat.sender_id === (CUser.getCurrentuser() && CUser.getCurrentuser().student_id)) ? "chat" : "chat chat-left"
 
-                                            return <div key={chat.id} className={classV}>
+                                            return <div key={chat.id} className={classV} >
                                                 <div className="chat-avatar">
                                                     <a className="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher">
                                                         {/* <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" /> */}
@@ -107,12 +120,13 @@ export default function SingleTicket({ match }) {
                                                 <div className="chat-body">
                                                     <div className="chat-content">
                                                         <p>{chat.message}</p>
-                                                        <time className="chat-time" dateTime="2015-07-01T11:39">{chat.created_at}</time>
+                                                        <time className="chat-time">{moment(chat.created_at).format(Define.FORMAT_DATE)}</time>
                                                     </div>
                                                 </div>
                                             </div>
                                         })}
-
+                                        <div ref={bottomInit}></div>
+                                        <div ref={bottom} style={{ marginTop: "30px" }}></div>
                                     </div>
                                 </div>
 

@@ -50,6 +50,8 @@ class ListAction {
                         type: Types.ADD_DATA,
                         payload: response//a newly created object
                     });
+
+                    
                     resolve(Response(true, "success", message, Define.BT_SUCCESS, response));
                 } else {//error
                     reject(new Error(message));
