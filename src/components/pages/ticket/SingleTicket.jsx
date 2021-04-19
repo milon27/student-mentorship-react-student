@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Main from '../../layouts/dashborad/Main'
 import ProtectedPage from '../../layouts/ProtectedPage'
-
-import '../../../assets/css/chat.css'
 
 import CUser from './../../../utils/helpers/CUser';
 import axios from 'axios';
@@ -12,10 +10,12 @@ import Define from './../../../utils/helpers/Define';
 import { Card, Row } from 'react-bootstrap';
 import moment from 'moment';
 import useTicketSocket from './../../../utils/hooks/useTicketSocket';
+import ScrollToBottom from 'react-scroll-to-bottom';
+
+
+import '../../../assets/css/chat.css'
 
 export default function SingleTicket({ match }) {
-    const bottomInit = useRef()
-    const bottom = useRef()
 
     //local state
     const [ticket, setTicket] = useState({})
@@ -25,16 +25,11 @@ export default function SingleTicket({ match }) {
     const history = useHistory()
 
     //init the socket
-    //init the socket
     useEffect(() => {
         if (ticket)
             //join the socket 
             joinTicket(ticket)
     }, [ticket])
-
-    useEffect(() => {
-        bottom?.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
-    }, [chats.length])
 
 
     //load chat list
@@ -51,8 +46,6 @@ export default function SingleTicket({ match }) {
                     //if valid then load chats
                     const res = await axios.get(`support/get/ticket_chat/ticket_id/${match.params.id}/`)
                     setChats([...res.data.response])
-                    //console.log(res, res);
-                    bottomInit.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
                 } else {
                     history.push(URL.TICKET_LIST)
                 }
@@ -62,14 +55,15 @@ export default function SingleTicket({ match }) {
             console.log(e);
         }
 
-    }, [])//chats.length
+    }, [])
 
     //add new chat
-    const addNew = async () => {
-
+    const addNew = async (e) => {
+        e.preventDefault();
         if (!message && message === "") {
             return
         }
+
         const chatObj = {
             sender_id: CUser.getCurrentuser() && CUser.getCurrentuser().student_id,
             message: message,
@@ -77,15 +71,9 @@ export default function SingleTicket({ match }) {
             created_at: moment(new Date()).format()
         }
 
-        //created_at: new Date()
         chatObj.id = new Date().getTime()
         createMessage(chatObj)
-
-        //const listAction = new ListAction(chatsDispatch)
-        //const res = await listAction.addData('support/create-message', chatObj)
         setMessage("")
-        //bottom.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
-        //console.log(res)
     }
 
     let classname = ticket.ticket_state !== Define.TICKET_SNOOZED ? "col-md-12" : "col-md-9"
@@ -93,19 +81,13 @@ export default function SingleTicket({ match }) {
     return (
         <>
             <ProtectedPage>
-                <Main title={`Ticket No- ${match.params.id}`}>
+                <Main title={`Ticket Title: ${ticket.ticket_title}, No- ${match.params.id}`}>
                     <Row>
-
                         <div className={`${classname} col-xs-12`}>
                             {/* <!-- Panel Chat --> */}
                             <div className="panel" id="chat">
-                                <div className="panel-heading">
-                                    <h4 className="panel-title text-primary">
-                                        Ticket Title: {ticket.ticket_title}
-                                    </h4>
-                                </div>
                                 <div className="panel-body">
-                                    <div className="chats height-overflow-y" >
+                                    <ScrollToBottom className="ov-y" >
                                         {chats.length > 0 && [].concat(chats).reverse().map(chat => {
                                             //
                                             const classV = (chat.sender_id === (CUser.getCurrentuser() && CUser.getCurrentuser().student_id)) ? "chat" : "chat chat-left"
@@ -125,15 +107,16 @@ export default function SingleTicket({ match }) {
                                                 </div>
                                             </div>
                                         })}
-                                        <div ref={bottomInit}></div>
-                                        <div ref={bottom} style={{ marginTop: "30px" }}></div>
-                                    </div>
+                                    </ScrollToBottom>
                                 </div>
 
-                                <div className="panel-footer">
+                                <div className="">
                                     <form>
                                         <div className="input-group">
-                                            <input type="text" className="form-control" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write Message..." disabled={ticket.ticket_state === Define.TICKET_PPROCESSING ? false : true} />
+                                            <input type="text" className="form-control" value={message}
+                                                onChange={(e) => setMessage(e.target.value)} placeholder="Write Message..." disabled={ticket.ticket_state === Define.TICKET_PPROCESSING ? false : true}
+                                                onKeyPress={(ee) => ee.key === 'Enter' ? addNew(ee) : null}
+                                            />
                                             <span className="input-group-btn">
                                                 <button onClick={addNew} className="btn btn-primary ml-2" type="button">Send</button>
                                             </span>

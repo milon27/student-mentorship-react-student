@@ -33,7 +33,7 @@ export default function Header({ title }) {
                 <i className="fa fa-bars"></i>
             </button>
 
-            <h3>{title}</h3>
+            <h5>{title}</h5>
 
             {/* <!-- Topbar Navbar --> */}
             <ul className="navbar-nav ml-auto">

@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../../../assets/img/logo.webp'
 import URL from '../../../utils/helpers/URL';
 
 export default function Sidebar() {
+
+    const [width, setWidth] = useState(window.innerWidth);
+
+    const toggedClass = width < 1000 ? "toggled" : ""
+
+    useEffect(() => {
+        window.addEventListener("resize", setWidth(window.innerWidth));
+        return () => window.removeEventListener("resize", setWidth(window.innerWidth));
+    }, []);
+
     return (
         <>
             {/* <!-- Sidebar --> */}
-            <ul className="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul className={"navbar-nav bg-primary sidebar sidebar-dark accordion " + toggedClass} id="accordionSidebar">
                 {/* <!-- Sidebar - Brand --> */}
                 <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                     <div className="sidebar-brand-icon rotate-n-15">
