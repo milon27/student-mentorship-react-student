@@ -40,7 +40,7 @@ export default function SignIn() {
             const response = await new AuthAction(authDispatch).login(student.email, student.password)
             console.log(response)
             app.STOP_LOADING()
-            setStudent(initvalue)
+            //setStudent(initvalue)
             history.push(URL.HOME)
         } catch (e) {
             app.SET_RESPONSE(Response(false, "Sign In failed.", e.message, Define.BT_DANGER))
@@ -53,7 +53,7 @@ export default function SignIn() {
 
     // check alrady logged in or not
     // console.log(CUser.isLoggedIn())
-    if (CUser.isLoggedIn()) {
+    if (CUser.isLoggedIn() === true) {
         return <Redirect to={URL.HOME}></Redirect>
     }
 

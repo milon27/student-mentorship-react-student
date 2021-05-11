@@ -53,7 +53,7 @@ export default function SignUp() {
             const response = await new AuthAction(authDispatch).signup(student)
             console.log(response)
             app.STOP_LOADING()
-            setStudent(initvalue)
+            //setStudent(initvalue)
             history.push(URL.HOME)
         } catch (e) {
             app.SET_RESPONSE(Response(false, "SignUP failed.", e.message, Define.BT_DANGER))
