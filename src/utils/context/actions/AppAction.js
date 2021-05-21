@@ -18,7 +18,7 @@ class AppAction {
     SET_RESPONSE = (response) => {
         this.dispatch({
             type: Types.SET_RESPONSE,
-            payload: response 
+            payload: response
         });
     }
     REMOVE_RESPONSE = () => {

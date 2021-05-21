@@ -31,6 +31,7 @@ export default function Sidebar() {
 
                 <li className="nav-item ">
                     <NavLink exact activeClassName="active" className="nav-link " to="/">
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </NavLink>
                 </li>
@@ -66,14 +67,6 @@ export default function Sidebar() {
                     <NavLink exact activeClassName="active" className="nav-link" to={URL.CONTRIBUTOR}>
                         <i className="fas fa-fw fa-award"></i>
                         <span>Contributor List</span>
-                    </NavLink>
-                </li>
-
-
-                <li className="nav-item ">
-                    <NavLink exact activeClassName="active" className="nav-link" to={URL.TODO_LIST}>
-                        <i className="fas fa-fw fa-award"></i>
-                        <span>To-Do List</span>
                     </NavLink>
                 </li>
 
