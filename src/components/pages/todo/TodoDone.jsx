@@ -2,10 +2,7 @@ import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import AppAction from "../../../utils/context/actions/AppAction";
-import {
-  DispatchContext,
-  StateContext, 
-} from "../../../utils/context/MainContext";
+import { DispatchContext } from "../../../utils/context/MainContext";
 import Define from "../../../utils/helpers/Define";
 import Todo from "./../../../utils/context/actions/TodoAction";
 import ShowingList from "./ShowingList";
@@ -13,23 +10,47 @@ const currentDate = new Date();
 
 const TodoDone = () => {
   const [doneItem, setDoneItem] = useState({});
-  const [feedback,setFeedback] = useState({});
-  const handleClick = (e) => {
-    setDoneItem(e);
-  };
-
+  const [feedback, setFeedback] = useState({});
   const [allTodos, setAllTodo] = useState([]);
-  const allTodo = allTodos.slice(0,7);
-
+  const allTodo = allTodos.slice(0, 7);
   const user = JSON.parse(localStorage.getItem(Define.C_USER));
-
-  // const { todo_list } = useContext(StateContext);
   const { appDispatch, todoDispatch } = useContext(DispatchContext);
   const listAction = new Todo(todoDispatch);
 
+  const handleClick = (e) => {
+    setDoneItem(e);
+  };
+  // Handle Done
+  const handleDone = async () => {
+    const appAction = new AppAction(appDispatch);
+    const res = await listAction.updateTodo(`todo/${doneItem.id}`, {
+      id: doneItem.id,
+      user_id: user.id,
+      is_done: 1,
+      feedback: feedback,
+    });
+    console.log(res);
+    appAction.SET_RESPONSE(res);
+
+    window.location.reload();
+  };
+
+  // Handle Delete TO Do
+  let resDelete = false;
+  const handleDeleteToDo = async () => {
+    const DeleteTodo = new AppAction(appDispatch);
+    const res = await listAction.deleteTodo(`todo/${doneItem.id}`, {
+      id: doneItem.id,
+      user_id: user.id,
+      is_done: 0,
+    });
+    resDelete = res.object;
+    DeleteTodo.SET_RESPONSE(res);
+    window.location.reload();
+  };
+  // get todos
   useEffect(() => {
     const token = listAction.getSource();
-    console.log(token);
     try {
       const uid = user.id;
       const load = async () => {
@@ -47,36 +68,18 @@ const TodoDone = () => {
     return () => {
       token.cancel();
     };
-  },[allTodo.length]);
+  }, [allTodo.length]);
   // console.log(allTodo);
-  // Handle Done
-  const handleDone = async () => {
-    const appAction = new AppAction(appDispatch);
-    const res = await listAction.updateTodo(`todo/${doneItem.id}`, {
-      id: doneItem.id,
-      user_id: user.id,
-      is_done: 1,
-      feedback:feedback,
-    });
-    appAction.SET_RESPONSE(res);
-  };
-
-  // Handle Delete TO Do 
-  const handleDeleteToDo= async()=> {
-    const DeleteTodo = new AppAction(appDispatch);
-    const resDelete = await listAction.deleteTodo(`todo/${doneItem.id}`, {
-      id: doneItem.id,
-      user_id: user.id,
-      is_done: 0,
-    });
-    DeleteTodo.SET_RESPONSE(resDelete);
-  } 
 
   return (
     <>
-      {allTodo.map((item) => (
-        <ShowingList handleClick={handleClick} item={item} />
-      ))}
+      {allTodo.length ? (
+        allTodo.map((item) => (
+          <ShowingList handleClick={handleClick} item={item} />
+        ))
+      ) : (
+        <></>
+      )}
       {/* Modal */}
       <form>
         <div
@@ -111,18 +114,16 @@ const TodoDone = () => {
                     placeholder="Deadline"
                   />
                   <br />
-                  <textarea 
-                  rows="3" 
-                  cols="30" 
-                  className="todo_entry"
-                  name="comments"
-                  placeholder="Comments(If Any):"
-                  onChange= {(e)=>{
-                     setFeedback(e.target.value)
-                  }}
-                  >
-                  </textarea>
-
+                  <textarea
+                    rows="3"
+                    cols="30"
+                    className="todo_entry"
+                    name="comments"
+                    placeholder="Comments(If Any):"
+                    onChange={(e) => {
+                      setFeedback(e.target.value);
+                    }}
+                  ></textarea>
                 </Card.Body>
                 <div class="modal-footer">
                   <button

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import Define from '../helpers/Define'
 
 
-
 let socket = null
 export default function useTicketSocket() {
 

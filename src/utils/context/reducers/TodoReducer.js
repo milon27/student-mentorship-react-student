@@ -2,6 +2,7 @@ import Types from "../actions/Types";
 export const initTodoState = [];
 
 const TodoReducer = (state, action) => {
+  // debugger;
   switch (action.type) {
     case Types.CREATE_TODO:
       return [action.payload, ...state];
@@ -12,7 +13,7 @@ const TodoReducer = (state, action) => {
     case Types.GET_COMPLETE_TODO:
       return state.filter((todo) => todo.is_done === 1);
     case Types.DELETE_TODO:
-      return state.filter((todo)=>todo.is_done===1);
+      return state.filter((todo) => todo.is_done === 1);
     default:
       return state;
   }

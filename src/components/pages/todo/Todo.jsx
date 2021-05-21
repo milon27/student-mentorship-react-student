@@ -8,7 +8,7 @@ export default function Todo() {
     return (
         <ProtectedPage>
             <Main title="Dashboard">
-                <TodoList />
+            <TodoList />
             </Main>
         </ProtectedPage>
     )

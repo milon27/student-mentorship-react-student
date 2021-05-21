@@ -5,7 +5,7 @@ import circleIcon from "../../../assets/img/circleIcon.webp";
 const ShowingList = ({ handleClick, item }) => {
   return (
     <>
-      <div class="d-flex justify-content-between Showing__TaskList pt-3">
+      <div className="d-flex justify-content-between Showing__TaskList pt-3">
         <div
           onClick={() => handleClick(item)}
           data-toggle="modal"
@@ -23,7 +23,7 @@ const ShowingList = ({ handleClick, item }) => {
             id="SE"
             src={circleIcon}
           />
-          <label className="ml-3" for="SE">
+          <label className="ml-3" htmlFor="SE">
             {item.title}
           </label>
         </div>

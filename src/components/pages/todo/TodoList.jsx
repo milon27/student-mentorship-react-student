@@ -1,26 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
-// import CUser from './../../../utils/helpers/CUser';
-// import { Link } from 'react-router-dom'
 import "../../../assets/css/dashboard.css";
 import Todo from "../../../utils/context/actions/TodoAction";
-import {
-  DispatchContext,
-  StateContext,
-} from "../../../utils/context/MainContext";
+import { DispatchContext } from "../../../utils/context/MainContext";
 import Define from "../../../utils/helpers/Define";
+import AlertLoading from "./../../layouts/AlertLoading";
 import CompleteTodo from "./CompleteTodo";
 import CreateTodo from "./CreateTodo";
 import TodoDone from "./TodoDone";
 
 export default function TodoList() {
   const [completeTodo, setCompleteTodo] = useState([]);
-
   const user = JSON.parse(localStorage.getItem(Define.C_USER));
-
-  const { todo_list } = useContext(StateContext);
-  const { appDispatch, todoDispatch } = useContext(DispatchContext);
+  const { todoDispatch } = useContext(DispatchContext);
   const listAction = new Todo(todoDispatch);
+
+  // Completed todo
   useEffect(() => {
     const token = listAction.getSource();
     try {
@@ -40,12 +35,17 @@ export default function TodoList() {
     return () => {
       token.cancel();
     };
-  }, []);
+  }, [completeTodo.length]);
 
   return (
     <>
       <Row>
-        <Col className="">
+        <Col className="d-flex justify-content-center mb-3">
+          <AlertLoading loadColor={Define.BT_DANGER} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <h1>To-Do List</h1>
         </Col>
       </Row>
@@ -67,9 +67,14 @@ export default function TodoList() {
           <Card className="shadow1">
             <Card.Header className="shadow__header">Completed</Card.Header>
             {/* To-do list needs loop for number of todos*/}
-            {completeTodo.map((completeTodo) => (
-              <CompleteTodo completeTodo={completeTodo} />
-            ))}
+            {completeTodo.length
+              ? completeTodo.map((completeTodo) => (
+                  <CompleteTodo
+                    completeTodo={completeTodo}
+                    key={completeTodo.id}
+                  />
+                ))
+              : ""}
           </Card>
         </div>
       </Row>

@@ -7,7 +7,7 @@ class Todo {
   constructor(dispatch) {
     this.dispatch = dispatch;
   }
-  // Create To-DO 
+  // Create To-DO
   createTodo = (url, newTodo) => {
     console.log(newTodo);
     return new Promise(async (resolve, reject) => {
@@ -19,7 +19,6 @@ class Todo {
           type: Types.CREATE_TODO,
           payload: response,
         });
-
         resolve(
           Response(true, "success", message, Define.BT_SUCCESS, response)
         );
@@ -42,7 +41,19 @@ class Todo {
         })
         .then((res) => {
           const { error, message, response } = res.data;
+          console.log(res);
           if (error === false) {
+            //no error
+            //dispatch the global state
+            this.dispatch({
+              type: Types.GET_TODO,
+              payload: response, //an array
+            });
+            resolve(
+              Response(true, "success", message, Define.BT_SUCCESS, response)
+            );
+          }
+          if (response.length === 0) {
             //no error
             //dispatch the global state
             this.dispatch({
@@ -130,37 +141,37 @@ class Todo {
         });
     });
   };
-  // Delete Todo 
-  deleteTodo=(url,deleteData)=> {
-     return new Promise((resolve,reject)=>{
-       axios 
-         .delete(url,deleteData)
-         .then((res)=>{
-           const {error,message,response} = res.data;
-           console.log(res);
-           if(error===false) {
-             this.dispatch({
-              type:Types.DELETE_TODO,
-              payload:response,
-             });
-             resolve(
-               Response(
-                 true,
-                 "Deleted Success",
-                 message,
-                 Define.BT_SUCCESS,
-                 response
-               )
-             );
-           } else {
+  // Delete Todo
+  deleteTodo = (url, deleteData) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(url, deleteData)
+        .then((res) => {
+          const { error, message, response } = res.data;
+          console.log(res);
+          if (error === false) {
+            this.dispatch({
+              type: Types.DELETE_TODO,
+              payload: response,
+            });
+            resolve(
+              Response(
+                true,
+                "Deleted Success",
+                message,
+                Define.BT_SUCCESS,
+                response
+              )
+            );
+          } else {
             reject(new Error(message));
-           }
-         })
-         .catch((e) => {
+          }
+        })
+        .catch((e) => {
           console.error("error: ", e);
           reject(e);
         });
-     })
+    });
   };
 }
 export default Todo;

@@ -8,12 +8,14 @@ import Todo from "./../../../utils/context/actions/TodoAction";
 
 const CreateTodo = () => {
   const user = JSON.parse(localStorage.getItem(Define.C_USER));
+  const { appDispatch, todoDispatch } = useContext(DispatchContext);
   const [createTodo, setCreateTodo] = useState({
     title: "",
     dead_line: "",
     user_id: user.id,
   });
-  const { appDispatch, todoDispatch } = useContext(DispatchContext);
+
+  // Create todo
   const handleSubmit = async () => {
     const appAction = new AppAction(appDispatch);
     const res = await new Todo(todoDispatch).createTodo(
@@ -21,12 +23,13 @@ const CreateTodo = () => {
       createTodo
     );
     appAction.SET_RESPONSE(res);
+    window.location.reload();
   };
   return (
     <div>
       <button
         type="button"
-        class="todo_list__createButton"
+        className="todo_list__createButton"
         data-toggle="modal"
         data-target="#exampleModalCenter"
       >
@@ -44,13 +47,13 @@ const CreateTodo = () => {
         <div
           className="modal fade"
           id="exampleModalCenter"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           aria-labelledby="exampleModalCenterTitle"
           aria-hidden="true"
         >
           <div className="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div className="modal-content">
               <Card className="shadow1">
                 <Card.Header className="shadow__header">
                   New To-Do entrys
@@ -73,7 +76,7 @@ const CreateTodo = () => {
                     name="deadline"
                     id="txtDate"
                     placeholder="Deadline"
-                    autocomplete="off"
+                    autoComplete="off"
                     required
                     onChange={(e) =>
                       setCreateTodo({
