@@ -26,7 +26,7 @@ const CreateTodo = () => {
     <div>
       <button
         type="button"
-        class="todo_list__createButton"
+        class="btn border todo_list__createButton"
         data-toggle="modal"
         data-target="#exampleModalCenter"
       >

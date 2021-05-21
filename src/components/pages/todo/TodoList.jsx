@@ -26,9 +26,13 @@ export default function TodoList() {
     try {
       const uid = user.id;
       const load = async () => {
-        if (uid) {
-          const res = await listAction.getCompleteTodo(`todo/${uid}/1`);
-          setCompleteTodo(res.object);
+        try {
+          if (uid) {
+            const res = await listAction.getCompleteTodo(`todo/${uid}/1`);
+            setCompleteTodo(res.object);
+          }
+        } catch (e) {
+          console.log("here.", e)
         }
       };
       load();
@@ -44,11 +48,6 @@ export default function TodoList() {
 
   return (
     <>
-      <Row>
-        <Col className="">
-          <h1>To-Do List</h1>
-        </Col>
-      </Row>
       <Row className="p-4">
         {/* Ticket Summary */}
         <div className="col-xl-6 col-lg-6 col-sm-6 col-12 mb-3 mb-md-0">

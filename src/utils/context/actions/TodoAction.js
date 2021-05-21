@@ -131,36 +131,36 @@ class Todo {
     });
   };
   // Delete Todo 
-  deleteTodo=(url,deleteData)=> {
-     return new Promise((resolve,reject)=>{
-       axios 
-         .delete(url,deleteData)
-         .then((res)=>{
-           const {error,message,response} = res.data;
-           console.log(res);
-           if(error===false) {
-             this.dispatch({
-              type:Types.DELETE_TODO,
-              payload:response,
-             });
-             resolve(
-               Response(
-                 true,
-                 "Deleted Success",
-                 message,
-                 Define.BT_SUCCESS,
-                 response
-               )
-             );
-           } else {
+  deleteTodo = (url, deleteData) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(url, deleteData)
+        .then((res) => {
+          const { error, message, response } = res.data;
+          console.log(res);
+          if (error === false) {
+            this.dispatch({
+              type: Types.DELETE_TODO,
+              payload: response,
+            });
+            resolve(
+              Response(
+                true,
+                "Deleted Success",
+                message,
+                Define.BT_SUCCESS,
+                response
+              )
+            );
+          } else {
             reject(new Error(message));
-           }
-         })
-         .catch((e) => {
+          }
+        })
+        .catch((e) => {
           console.error("error: ", e);
           reject(e);
         });
-     })
+    })
   };
 }
 export default Todo;

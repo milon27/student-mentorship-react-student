@@ -7,7 +7,7 @@ import ProtectedPage from './../../layouts/ProtectedPage';
 export default function Todo() {
     return (
         <ProtectedPage>
-            <Main title="Dashboard">
+            <Main title="Todo List">
                 <TodoList />
             </Main>
         </ProtectedPage>
