@@ -53,9 +53,13 @@ export default function TicketSummary() {
         try {
             const uid = user.id;
             const load = async () => {
-                if (uid) {
-                    const res = await listAction.getAllTodos(`todo/${uid}/0`);
-                    setAllTodo(res.object);
+                try {
+                    if (uid) {
+                        const res = await listAction.getAllTodos(`todo/${uid}/0`);
+                        setAllTodo(res.object);
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
             };
             load();

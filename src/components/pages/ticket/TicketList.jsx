@@ -46,8 +46,12 @@ export default function TicketList() {
         try {
             const uid = CUser.getCurrentuser() && CUser.getCurrentuser().student_id
             const load = async () => {
-                if (uid) {
-                    const res = await listAction.getAll(`support/get/ticket/student_id/${uid}/${page}`)
+                try {
+                    if (uid) {
+                        const res = await listAction.getAll(`support/get/ticket/student_id/${uid}/${page}`)
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
             }
             load()

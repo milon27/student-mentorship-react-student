@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 import AppAction from "../../../utils/context/actions/AppAction";
 import {
   DispatchContext,
-  StateContext, 
+  StateContext,
 } from "../../../utils/context/MainContext";
 import Define from "../../../utils/helpers/Define";
 import Todo from "./../../../utils/context/actions/TodoAction";
@@ -13,13 +13,13 @@ const currentDate = new Date();
 
 const TodoDone = () => {
   const [doneItem, setDoneItem] = useState({});
-  const [feedback,setFeedback] = useState({});
+  const [feedback, setFeedback] = useState({});
   const handleClick = (e) => {
     setDoneItem(e);
   };
 
   const [allTodos, setAllTodo] = useState([]);
-  const allTodo = allTodos.slice(0,7);
+  const allTodo = allTodos.slice(0, 7);
 
   const user = JSON.parse(localStorage.getItem(Define.C_USER));
 
@@ -33,9 +33,13 @@ const TodoDone = () => {
     try {
       const uid = user.id;
       const load = async () => {
-        if (uid) {
-          const res = await listAction.getAllTodos(`todo/${uid}/0`);
-          setAllTodo(res.object);
+        try {
+          if (uid) {
+            const res = await listAction.getAllTodos(`todo/${uid}/0`);
+            setAllTodo(res.object);
+          }
+        } catch (e) {
+          console.log(e);
         }
       };
       load();
@@ -47,7 +51,7 @@ const TodoDone = () => {
     return () => {
       token.cancel();
     };
-  },[allTodo.length]);
+  }, [allTodo.length]);
   // console.log(allTodo);
   // Handle Done
   const handleDone = async () => {
@@ -56,13 +60,13 @@ const TodoDone = () => {
       id: doneItem.id,
       user_id: user.id,
       is_done: 1,
-      feedback:feedback,
+      feedback: feedback,
     });
     appAction.SET_RESPONSE(res);
   };
 
   // Handle Delete TO Do 
-  const handleDeleteToDo= async()=> {
+  const handleDeleteToDo = async () => {
     const DeleteTodo = new AppAction(appDispatch);
     const resDelete = await listAction.deleteTodo(`todo/${doneItem.id}`, {
       id: doneItem.id,
@@ -70,7 +74,7 @@ const TodoDone = () => {
       is_done: 0,
     });
     DeleteTodo.SET_RESPONSE(resDelete);
-  } 
+  }
 
   return (
     <>
@@ -111,15 +115,15 @@ const TodoDone = () => {
                     placeholder="Deadline"
                   />
                   <br />
-                  <textarea 
-                  rows="3" 
-                  cols="30" 
-                  className="todo_entry"
-                  name="comments"
-                  placeholder="Comments(If Any):"
-                  onChange= {(e)=>{
-                     setFeedback(e.target.value)
-                  }}
+                  <textarea
+                    rows="3"
+                    cols="30"
+                    className="todo_entry"
+                    name="comments"
+                    placeholder="Comments(If Any):"
+                    onChange={(e) => {
+                      setFeedback(e.target.value)
+                    }}
                   >
                   </textarea>
 
