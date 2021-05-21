@@ -171,7 +171,11 @@ class Todo {
           console.error("error: ", e);
           reject(e);
         });
+<<<<<<< HEAD
     });
+=======
+    })
+>>>>>>> master
   };
 }
 export default Todo;

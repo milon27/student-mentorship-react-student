@@ -60,6 +60,13 @@ export default function Sidebar() {
                         </div>
                     </div>
                 </li> */}
+
+                <li className="nav-item ">
+                    <NavLink exact activeClassName="active" className="nav-link" to={URL.TODO_LIST}>
+                        <i className="fas fa-fw fa-award"></i>
+                        <span>To-Do List</span>
+                    </NavLink>
+                </li>
                 <hr className="sidebar-divider d-none d-md-block" />
 
                 <li className="nav-item ">
@@ -70,12 +77,7 @@ export default function Sidebar() {
                 </li>
 
 
-                <li className="nav-item ">
-                    <NavLink exact activeClassName="active" className="nav-link" to={URL.TODO_LIST}>
-                        <i className="fas fa-fw fa-award"></i>
-                        <span>To-Do List</span>
-                    </NavLink>
-                </li>
+
 
                 {/* <!-- Sidebar Toggler (Sidebar) --> */}
                 <div className="text-center d-none d-md-inline mt-2">

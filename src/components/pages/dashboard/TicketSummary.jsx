@@ -24,9 +24,9 @@ export default function TicketSummary() {
     const [summary, setSummary] = useState(init)
     const user = JSON.parse(localStorage.getItem(Define.C_USER));
     const { appDispatch, todoDispatch } = useContext(DispatchContext);
-    const [allTodos,setAllTodo] = useState([]);
-    const allTodo = allTodos.slice(0,5);
-    
+    const [allTodos, setAllTodo] = useState([]);
+    const allTodo = allTodos.slice(0, 5);
+
     useEffect(() => {
         const source = axios.CancelToken.source();
         const load = async () => {
@@ -49,38 +49,33 @@ export default function TicketSummary() {
     const listAction = new Todo(todoDispatch);
 
     useEffect(() => {
-      const token = listAction.getSource();
-      try {
-        const uid = user.id;
-        const load = async () => {
-          if (uid) {
-            const res = await listAction.getAllTodos(`todo/${uid}/0`);
-            setAllTodo(res.object);
-          }
+        const token = listAction.getSource();
+        try {
+            const uid = user.id;
+            const load = async () => {
+                if (uid) {
+                    const res = await listAction.getAllTodos(`todo/${uid}/0`);
+                    setAllTodo(res.object);
+                }
+            };
+            load();
+        } catch (e) {
+            console.log(e);
+        }
+
+        //clean up
+        return () => {
+            token.cancel();
         };
-        load();
-      } catch (e) {
-        console.log(e);
-      }
-  
-      //clean up
-      return () => {
-        token.cancel();
-      };
-    },[]);
+    }, []);
     return (
         <>
-            <Row>
-                <Col className="mb-5">
-                    
-                </Col>
-            </Row>
             <Row className="p-4">
                 {/* Ticket Summary */}
                 <div className="col-xl-4 col-sm-6 col-12 mb-3 mb-md-0">
                     <Card className="shadow1">
-                    <Card.Header className="shadow__header">Ticket Summary</Card.Header>
-                    {/* Pending Tickets */}
+                        <Card.Header className="shadow__header">Ticket Summary</Card.Header>
+                        {/* Pending Tickets */}
                         <Card.Body className="shadow1 shadow__task m-2">
                             <div className="media d-flex justify-content-between">
                                 <div className="align-self-center">
@@ -90,7 +85,7 @@ export default function TicketSummary() {
                                     <span><Link to={URL.TICKET_LIST}>Pending Tickets</Link></span>
                                 </div>
                                 <div className="shadow__total_pending">
-                                   <h3>{summary.total_pending}</h3>
+                                    <h3>{summary.total_pending}</h3>
                                 </div>
                             </div>
                         </Card.Body>
@@ -98,13 +93,13 @@ export default function TicketSummary() {
                         <Card.Body className="shadow1 shadow__task m-2">
                             <div className="media d-flex justify-content-between">
                                 <div className="align-self-center">
-                                <img src={processingImg} alt="" className="icon_width" />
+                                    <img src={processingImg} alt="" className="icon_width" />
                                 </div>
                                 <div className="media-body ml-4">
-                                <span><Link to={URL.TICKET_LIST}>Processing Tickets</Link></span>
+                                    <span><Link to={URL.TICKET_LIST}>Processing Tickets</Link></span>
                                 </div>
                                 <div className="shadow__total_pending">
-                                <h3>{summary.total_processing}</h3>
+                                    <h3>{summary.total_processing}</h3>
                                 </div>
                             </div>
                         </Card.Body>
@@ -112,13 +107,13 @@ export default function TicketSummary() {
                         <Card.Body className="shadow1 shadow__task m-2">
                             <div className="media d-flex justify-content-between">
                                 <div className="align-self-center">
-                                <img src={snoozedImg} alt="" className="icon_width" />
+                                    <img src={snoozedImg} alt="" className="icon_width" />
                                 </div>
                                 <div className="media-body ml-4">
-                                <span><Link to={URL.TICKET_LIST}>Total Snoozed Tickets</Link></span>
+                                    <span><Link to={URL.TICKET_LIST}>Total Snoozed Tickets</Link></span>
                                 </div>
                                 <div className="shadow__total_pending">
-                                <h3>{summary.total_snoozed}</h3>
+                                    <h3>{summary.total_snoozed}</h3>
                                 </div>
                             </div>
                         </Card.Body>
@@ -126,13 +121,13 @@ export default function TicketSummary() {
                         <Card.Body className="shadow1 shadow__task m-2">
                             <div className="media d-flex justify-content-between">
                                 <div className="align-self-center">
-                                <img src={completedImg} alt="" className="icon_width" />
+                                    <img src={completedImg} alt="" className="icon_width" />
                                 </div>
                                 <div className="media-body ml-4">
-                                <span><Link to={URL.TICKET_LIST}>Total Completed Tickets</Link></span>
+                                    <span><Link to={URL.TICKET_LIST}>Total Completed Tickets</Link></span>
                                 </div>
                                 <div className="shadow__total_pending">
-                                <h3>{summary.total_completed}</h3>
+                                    <h3>{summary.total_completed}</h3>
                                 </div>
                             </div>
                         </Card.Body>
@@ -141,29 +136,29 @@ export default function TicketSummary() {
                 {/* To-Do */}
                 <div className="col-xl-4 col-sm-6 col-12 mb-3 mb-md-0">
                     <Card className="shadow1">
-                    <Card.Header className="shadow__header">To-Do</Card.Header>
-                    {/* To-do list needs loop for number of todos*/}
-                    {   allTodo.length===0?"No To do Created Yet":
-                        allTodo.map(item=>(
-                            <Card.Body className="shadow1 shadow__task m-2">
-                            <div className="media d-flex justify-content-between">
-                                <div className="media-body ml-2">
-                                    <span><Link to="/todo">{item.title}</Link></span>
-                                </div>
-                                <div className="shadow__total_pending">
-                                   <small>Due in {Math.round(Math.abs(curDate-new Date(item.dead_line).getTime())/(1000 * 60 * 60 * 24))} days</small>
-                                </div>
-                            </div>
-                        </Card.Body>
-                        ))
-                    }
+                        <Card.Header className="shadow__header">To-Do</Card.Header>
+                        {/* To-do list needs loop for number of todos*/}
+                        {allTodo.length === 0 ? "No To do Created Yet" :
+                            allTodo.map(item => (
+                                <Card.Body className="shadow1 shadow__task m-2">
+                                    <div className="media d-flex justify-content-between">
+                                        <div className="media-body ml-2">
+                                            <span><Link to="/todo">{item.title}</Link></span>
+                                        </div>
+                                        <div className="shadow__total_pending">
+                                            <small>Due in {Math.round(Math.abs(curDate - new Date(item.dead_line).getTime()) / (1000 * 60 * 60 * 24))} days</small>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            ))
+                        }
                     </Card>
                 </div>
-                {/* Notice */} 
+                {/* Notice */}
                 <div className="col-xl-4 col-sm-6 col-12 mb-3 mb-md-0">
                     <Card className="shadow1">
-                    <Card.Header className="shadow__header">Notice</Card.Header>
-                    {/* Notice needs loop for number of todos*/}
+                        <Card.Header className="shadow__header">Notice</Card.Header>
+                        {/* Notice needs loop for number of todos*/}
                         <Card.Body className="shadow1 shadow__task m-2">
                             <div className="media d-flex justify-content-between">
                                 <div className="media-body ml-2">
@@ -173,7 +168,7 @@ export default function TicketSummary() {
                         </Card.Body>
                     </Card>
                 </div>
-            
+
             </Row>
         </>
     )

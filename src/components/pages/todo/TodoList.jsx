@@ -21,9 +21,13 @@ export default function TodoList() {
     try {
       const uid = user.id;
       const load = async () => {
-        if (uid) {
-          const res = await listAction.getCompleteTodo(`todo/${uid}/1`);
-          setCompleteTodo(res.object);
+        try {
+          if (uid) {
+            const res = await listAction.getCompleteTodo(`todo/${uid}/1`);
+            setCompleteTodo(res.object);
+          }
+        } catch (e) {
+          console.log("here.", e)
         }
       };
       load();
