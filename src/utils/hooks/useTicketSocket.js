@@ -12,6 +12,12 @@ export default function useTicketSocket() {
     useEffect(() => {
         //init the socket
         socket = io(Define.API_BASE_URL, { transport: ["websocket"] })
+        //recieve message
+        socket.on(Define.RECIEVE_MESSAGE, (message) => {
+            setList(old_list => {
+                return [message, ...old_list]
+            })
+        })
         //clean up the socket
         return () => {
             //socket.emit(Define.DISCONNECT)
@@ -31,12 +37,7 @@ export default function useTicketSocket() {
             setList([message, ...list])
         }
     }
-    //recieved message
-    useEffect(() => {
-        socket.on(Define.RECIEVE_MESSAGE, (message) => {
-            setList([message, ...list])
-        })
-    })
+
 
     return [list, setList, joinTicket, createMessage]
 }
