@@ -72,26 +72,70 @@ class ListAction {
     });
   }; //end add data
 
-  // updateData = (url, updateData) => {
-  //     return new Promise((resolve, reject) => {
-  //         axios.put(url, updateData).then((res) => {
-  //             const { error, message, response } = res.data
-  //             if (error === false) {
-  //                 //dispatch the global state
-  //                 this.dispatch({
-  //                     type: Types.UPDATE_DATA,
-  //                     payload: response
-  //                 });
-  //                 resolve(Response(true, "update succes", message, Define.BT_SUCCESS, response));
-  //             } else {
-  //                 reject(new Error(message));
-  //             }
-  //         }).catch((e) => {
-  //             console.error("erroe: ", e)
-  //             reject(e);
-  //         })
-  //     });
-  // }//end update data
+  updateData = (url, updateData) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(url, updateData)
+        .then((res) => {
+          const { error, message, response } = res.data;
+          if (error === false) {
+            //dispatch the global state
+            this.dispatch({
+              type: Types.UPDATE_DATA,
+              payload: response,
+            });
+            resolve(
+              Response(
+                true,
+                "update succes",
+                message,
+                Define.BT_SUCCESS,
+                response
+              )
+            );
+          } else {
+            reject(new Error(message));
+          }
+        })
+        .catch((e) => {
+          console.error("erroe: ", e);
+          reject(e);
+        });
+    });
+  }; //end update data
+
+  // Delete Data
+  deleteData = (url, updateData) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(url, updateData)
+        .then((res) => {
+          const { error, message, response } = res.data;
+          if (error === false) {
+            //dispatch the global state
+            this.dispatch({
+              type: Types.DELETE_DATA,
+              payload: response,
+            });
+            resolve(
+              Response(
+                true,
+                "Deleted successfully",
+                message,
+                Define.BT_SUCCESS,
+                response
+              )
+            );
+          } else {
+            reject(new Error(message));
+          }
+        })
+        .catch((e) => {
+          console.error("erroe: ", e);
+          reject(e);
+        });
+    });
+  }; //end Delete data
 }
 
 export default ListAction;

@@ -67,6 +67,14 @@ export default function Sidebar() {
                         <span>To-Do List</span>
                     </NavLink>
                 </li>
+                
+                <li className="nav-item ">
+                    <NavLink exact activeClassName="active" className="nav-link" to={URL.NOTICE_LIST}>
+                        <i className="fas fa-fw fa-award"></i>
+                        <span>Notice</span>
+                    </NavLink>
+                </li>
+
                 <hr className="sidebar-divider d-none d-md-block" />
 
                 <li className="nav-item ">

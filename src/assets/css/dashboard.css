@@ -1,4 +1,4 @@
-.shadow__header {
+.shadow__header,.modal-header {
     background-color:#0F243C !important;
     color:white !important;
     font-size:16px !important;
@@ -35,10 +35,11 @@
     border-radius:50% !important;
     font-size:30px;
 }
+
+/* Customize Modal  */
 .modal-content,.todo_entry{
     width:100%;
-    padding-bottom:5px;
-    margin-bottom:10px;
-    border-radius:10px;
-    outline: 10px;
+    font-weight: 400;
+    color: #858796;
+    font-size: 1rem;
 }

@@ -1,7 +1,7 @@
 import { Button, Modal } from 'react-bootstrap'
 import React from 'react'
 
-export default function MyModal({ title, children, show, setShow, onSubmit }) {
+export default function ModalDelete({ title, children, show, setShow, onSubmit }) {
     return (
         <div>
             <Modal
@@ -20,7 +20,7 @@ export default function MyModal({ title, children, show, setShow, onSubmit }) {
                     <Button variant="secondary" onClick={() => setShow(false)}>
                         Close
                     </Button>
-                    <Button onClick={onSubmit} variant="primary">Done</Button>
+                    <Button onClick={onSubmit} variant="primary">Delete?</Button>
                 </Modal.Footer>
             </Modal>
         </div>

@@ -7,7 +7,7 @@ class Todo {
   constructor(dispatch) {
     this.dispatch = dispatch;
   }
-  // Create To-DO 
+  // Create To-DO
   createTodo = (url, newTodo) => {
     console.log(newTodo);
     return new Promise(async (resolve, reject) => {
@@ -125,19 +125,19 @@ class Todo {
           }
         })
         .catch((e) => {
-          console.error("erroe: ", e);
+          console.error("error: ", e);
           reject(e);
         });
     });
   };
-  // Delete Todo 
+  // Delete Todo
   deleteTodo = (url, deleteData) => {
     return new Promise((resolve, reject) => {
       axios
         .delete(url, deleteData)
         .then((res) => {
           const { error, message, response } = res.data;
-          console.log(res);
+          console.log(response);
           if (error === false) {
             this.dispatch({
               type: Types.DELETE_TODO,
@@ -160,7 +160,7 @@ class Todo {
           console.error("error: ", e);
           reject(e);
         });
-    })
+    });
   };
 }
 export default Todo;

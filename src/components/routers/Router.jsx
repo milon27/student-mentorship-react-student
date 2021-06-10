@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SignUp from "../pages/auth/SignUp";
+import Notice from "../pages/notice/Notice";
 import Todo from "../pages/todo/Todo";
 import URL from "./../../utils/helpers/URL";
 import NotFound from "./../pages/404/index";
@@ -18,6 +19,7 @@ export default function Router() {
         <Route exact path={URL.HOME} component={Home}></Route>
         <Route path={URL.SIGN_UP} component={SignUp}></Route>
         <Route path={URL.TODO_LIST} component={Todo}></Route>
+        <Route path={URL.NOTICE_LIST} component={Notice}></Route>
         <Route exact path={URL.TICKET_LIST} component={TicketList}></Route>
         <Route path={URL.TICKET_LIST + "/:id"} component={SingleTicket}></Route>
         <Route path={URL.CONTRIBUTOR} component={Contributor}></Route>
