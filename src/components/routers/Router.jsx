@@ -9,6 +9,7 @@ import Contributor from "./../pages/contributor/Contributor";
 import Home from "./../pages/dashboard/Home";
 import SingleTicket from "./../pages/ticket/SingleTicket";
 import TicketList from "./../pages/ticket/TicketList";
+import Notice from "../pages/notice/Notice";
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
         <Route exact path={URL.TICKET_LIST} component={TicketList}></Route>
         <Route path={URL.TICKET_LIST + "/:id"} component={SingleTicket}></Route>
         <Route path={URL.CONTRIBUTOR} component={Contributor}></Route>
+        <Route path={URL.NOTICE_LIST} component={Notice}></Route>
         <Route default component={NotFound}></Route>
       </Switch>
     </BrowserRouter>
