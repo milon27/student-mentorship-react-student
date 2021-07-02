@@ -10,7 +10,7 @@ export default function NoticeModel({ show, setShow, viewItem }) {
     setShow(false);
   };
 
-  const onChange = (e) => {};
+  const onChange = (e) => { };
 
   return (
     <div>
@@ -20,7 +20,7 @@ export default function NoticeModel({ show, setShow, viewItem }) {
         setShow={setShow}
         onSubmit={onSubmit}
       >
-        <Input name="" title="" value={viewItem.title} onChange={onChange} />
+        <Input name="" title="" value={viewItem.title} onChange={onChange} disable={true} />
         <Input
           name=""
           title=""
@@ -28,7 +28,7 @@ export default function NoticeModel({ show, setShow, viewItem }) {
             Define.FORMAT_DATE
           )}`}
           onChange={onChange}
-          
+          disable={true}
         />
         <Input
           name=""
@@ -36,6 +36,7 @@ export default function NoticeModel({ show, setShow, viewItem }) {
           title=""
           value={viewItem.description}
           onChange={onChange}
+          disable={true}
         />
       </ModalView>
     </div>

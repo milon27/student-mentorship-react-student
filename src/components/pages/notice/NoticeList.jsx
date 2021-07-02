@@ -33,27 +33,27 @@ export default function NoticeList() {
 
     return (
         <>
-                <NoticeModel show={show} setShow={setShow} />
-                <Row >
-                    <Col className="d-flex justify-content-center mb-3">
-                        <AlertLoading loadColor={Define.BT_DANGER} />
-                    </Col>
-                </Row>
-                <Row >
-                    <Col className="d-flex justify-content-start mb-3">
-                        <Button className="mr-2" onClick={prev}>Prev</Button>
-                        <Button className="mr-2" disabled>{page}</Button>
-                        <Button className="mr-2" onClick={next}>Next</Button>
-                    </Col>
-                    <Col className="d-flex justify-content-end mb-3">
-                        {/* <Button onClick={() => { setShow(true) }}>Create New Notice</Button> */}
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <NoticeTable />
-                    </Col>
-                </Row>
+            <NoticeModel show={show} setShow={setShow} />
+            <Row >
+                <Col className="d-flex justify-content-center mb-3">
+                    <AlertLoading loadColor={Define.BT_DANGER} />
+                </Col>
+            </Row>
+            <Row >
+                <Col className="d-flex justify-content-start mb-3">
+                    <Button className="mr-2" onClick={prev}>Prev</Button>
+                    <Button className="mr-2" disabled>{page}</Button>
+                    <Button className="mr-2" onClick={next}>Next</Button>
+                </Col>
+                <Col className="d-flex justify-content-end mb-3">
+                    {/* <Button onClick={() => { setShow(true) }}>Create New Notice</Button> */}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <NoticeTable />
+                </Col>
+            </Row>
         </ >
     )
 }

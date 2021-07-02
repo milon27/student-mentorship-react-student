@@ -16,11 +16,11 @@ const CompleteTodo = ({
       <Card.Body
         className="shadow1 shadow__task m-2"
         data-toggle="modal"
-        data-target="#exampleModalCenterDelete"
+        data-target="#completeTodoID"
         onClick={() => handleClickDelete(completeTodo)}
       >
         <div className="d-flex justify-content-between Showing__TaskList pt-3">
-          <div>
+          <div className="d-flex align-items-center">
             <img
               className="todo_list__createButton__dateIcon"
               alt="dateIcon"
@@ -33,14 +33,16 @@ const CompleteTodo = ({
           <small>
             {moment(completeTodo.dead_line).format(Define.FORMAT_DATE)}
           </small>
+          <i className="fas fa-trash ml-2"></i>
         </div>
-        <small className="ml-3">Comments :{completeTodo.feedback}</small>
+        {completeTodo.feedback ? <small className="ml-3">Comments :{completeTodo.feedback}</small> : ""}
+
       </Card.Body>
 
       {/* Delete Completed TOdo Modal  */}
       <div
         className="modal fade"
-        id="exampleModalCenterDelete"
+        id="completeTodoID"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true"
