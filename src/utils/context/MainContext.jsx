@@ -15,18 +15,29 @@ export default function MainContext(props) {
     initListState
   );
   const [todo_list, todoDispatch] = useReducer(TodoReducer, initTodoState); //for any kind of list
-
+  const [completeTodoList, completeTodoListDispatch] = useReducer(
+    TodoReducer,
+    initTodoState
+  ); //for any kind of list
+  const [notice_list, notice_listDispatch] = useReducer(
+    ListReducer,
+    initListState
+  );
   const global_state = {
     auth,
     app,
     ticket_list,
     todo_list,
+    completeTodoList,
+    notice_list
   };
   const global_dispatch = {
     authDispatch,
     appDispatch,
     ticket_listDispatch,
     todoDispatch,
+    completeTodoListDispatch,
+    notice_listDispatch
   };
 
   return (

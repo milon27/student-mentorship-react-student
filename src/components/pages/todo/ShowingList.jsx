@@ -5,25 +5,21 @@ import circleIcon from "../../../assets/img/circleIcon.webp";
 const ShowingList = ({ handleClick, item }) => {
   return (
     <>
-      <div class="d-flex justify-content-between Showing__TaskList pt-3">
-        <div
-          onClick={() => handleClick(item)}
-          data-toggle="modal"
-          data-target="#MarkEntryModal"
+      <div 
+      className="d-flex justify-content-between Showing__TaskList pt-3"
+      onClick={() => handleClick(item)}
+      data-toggle="modal" 
+      data-target="#MarkEntryModal"
+      >
+        <div 
         >
-          {/* <input
-            type="checkbox"
-            id="SE"
-            name="SE Assignment"
-            value="SE_Assignment"
-          /> */}
             <img
             className="todo_list__createButton__dateIcon"
             alt="Circular Icon"
             id="SE"
             src={circleIcon}
           />
-          <label className="ml-3" for="SE">
+          <label className="ml-3" htmlFor="SE">
             {item.title}
           </label>
         </div>

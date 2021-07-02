@@ -4,7 +4,7 @@ const URL = {
     SIGN_IN: "/sign-in",
     TICKET_LIST: "/ticket-list",
     CONTRIBUTOR: "/contributor",
-    // HOME1:"/Home1",
-    TODO_LIST:"/todo"
+    TODO_LIST:"/todo",
+    NOTICE_LIST:"/notice"
 }
 export default URL
