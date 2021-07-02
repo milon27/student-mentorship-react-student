@@ -1,7 +1,8 @@
 const Define = {
-    API_BASE_URL: "http://localhost:2727/",//http://localhost:2727/,"http://api.zulkar.me/"
+    API_BASE_URL: "http://localhost:2727/",//http://localhost:2727/,"https://api.zulkar.me/"
     //time format
     FORMAT_DATE: "DD-MM-YYYY , hh:mm A",
+    FORMAT_DATE_NOTICE: "DD.MM.YYYY",
     //bootstrap color
     BT_PRIMARY: "primary",
     BT_DANGER: "danger",

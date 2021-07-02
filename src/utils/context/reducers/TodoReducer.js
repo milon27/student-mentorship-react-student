@@ -10,9 +10,9 @@ const TodoReducer = (state, action) => {
     case Types.UPDATE_TODO:
       return state.filter((todo) => todo.is_done === action.payload.is_done);
     case Types.GET_COMPLETE_TODO:
-      return state.filter((todo) => todo.is_done === 1);
+      return [...action.payload];
     case Types.DELETE_TODO:
-      return state.filter((todo)=>todo.is_done===1);
+      return state.filter((todo) => todo.id !== action.payload);
     default:
       return state;
   }
