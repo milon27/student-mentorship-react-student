@@ -1,5 +1,5 @@
 const Define = {
-    API_BASE_URL: "http://34.229.189.162:2727/",//http://localhost:2727/,http://api.freeconvert.xyz/,http://54.237.56.192:2727/
+    API_BASE_URL: "http://localhost:2727/",//http://localhost:2727/,"http://api.zulkar.me/"
     //time format
     FORMAT_DATE: "DD-MM-YYYY , hh:mm A",
     //bootstrap color
