@@ -9,8 +9,17 @@ const ListReducer = (state, action) => {
         case Types.ADD_DATA:
             return [action.payload, ...state];//return array with new object
         case Types.UPDATE_DATA:
-            //let objIndex = state.findIndex((obj => obj.id == action.payload.id));
-            //state[objIndex] = action.payload;
+            //use case
+            /**
+             * this.dispatch({
+             *      type:Types.UPDATE_DATA
+             *      payload:{
+             *          id_field:"id",
+             *          obj:{}
+             *      }
+             * })
+             */
+
             state = state.map(itm => {
                 const id_field = action.payload.id_field
                 if (itm[id_field] === action.payload.obj[id_field])

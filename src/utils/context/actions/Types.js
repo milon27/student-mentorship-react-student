@@ -9,7 +9,7 @@ const Types = {
   SET_RESPONSE: "SET_RESPONSE",
   REMOVE_RESPONSE: "REMOVE_RESPONSE",
   RELOAD: "RELOAD",
-  //list
+  //list & object
   GET_DATA: "GET_DATA",
   ADD_DATA: "ADD_DATA",
   UPDATE_DATA: "UPDATE_DATA",
@@ -19,7 +19,7 @@ const Types = {
   GET_TODO: "GET_TODO",
   UPDATE_TODO: "UPDATE_TODO",
   GET_COMPLETE_TODO: "GET_COMPLETE_TODO",
-  DELETE_TODO:"DELETE_TODO",
+  DELETE_TODO: "DELETE_TODO",
   //optional
   DARK_THEME: "DARK_THEME",
   //payload structure
