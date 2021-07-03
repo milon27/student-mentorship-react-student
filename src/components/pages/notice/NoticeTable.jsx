@@ -4,10 +4,10 @@ import { Table } from "react-bootstrap";
 import Define from "./../../../utils/helpers/Define";
 import NoticeView from "./NoticeView";
 import ListAction from "./../../../utils/context/actions/ListAction";
-import { DispatchContext,StateContext } from "./../../../utils/context/MainContext";
+import { DispatchContext, StateContext } from "./../../../utils/context/MainContext";
 import CUser from "../../../utils/helpers/CUser";
 
-export default function NoticeTable() {
+export default function NoticeTable({ page }) {
   const [show, setShow] = useState({ view: false, edit: false, delete: false });
   const [viewItem, setViewItem] = useState(null);
 
@@ -20,8 +20,8 @@ export default function NoticeTable() {
   const { appDispatch, notice_listDispatch } = useContext(DispatchContext);
 
 
-      //global state
-      const { notice_list } = useContext(StateContext);
+  //global state
+  const { notice_list } = useContext(StateContext);
 
   // Getting Notice_list
   useEffect(() => {
@@ -29,27 +29,28 @@ export default function NoticeTable() {
     const listAction = new ListAction(notice_listDispatch)
     const token = listAction.getSource()
     try {
-        const uid = CUser.getCurrentuser() && CUser.getCurrentuser().student_id
-        const load = async () => {
-            try {
-                if (uid) {
-                    const res = await listAction.getAll(`notice/get-all/1`)
-                }
-            } catch (e) {
-                console.log(e);
-            }
+      const uid = CUser.getCurrentuser() && CUser.getCurrentuser().student_id
+      const load = async () => {
+        try {
+          if (uid) {
+            const res = await listAction.getAll(`notice/get-all/${page}`)
+            console.log("notice: ", res)
+          }
+        } catch (e) {
+          console.log(e);
         }
-        load()
+      }
+      load()
     } catch (e) {
-        console.log(e)
+      console.log(e)
     }
 
     //clean up
     return () => {
-        token.cancel()
+      token.cancel()
     }
 
-}, [notice_list.length])
+  }, [page])//, notice_list.length
 
   return (
     <div>

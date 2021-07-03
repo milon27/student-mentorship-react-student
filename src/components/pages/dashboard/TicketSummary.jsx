@@ -45,11 +45,11 @@ export default function TicketSummary() {
     };
   }, []);
 
-  // Get Notice of 7 Days
+  // Get Notice of recent total 7
   useEffect(() => {
     const source = axios.CancelToken.source();
     const load = async () => {
-      const res = await axios.get(`notice/get-recent/7`, {
+      const res = await axios.get(`notice/get-recent/4`, {
         cancelToken: source.token,
       });
       console.log(res);
@@ -187,7 +187,7 @@ export default function TicketSummary() {
                           Math.abs(
                             curDate - new Date(item.dead_line).getTime()
                           ) /
-                            (1000 * 60 * 60 * 24)
+                          (1000 * 60 * 60 * 24)
                         )}{" "}
                         days
                       </small>

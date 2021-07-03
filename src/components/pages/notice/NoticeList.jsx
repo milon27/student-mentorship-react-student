@@ -51,7 +51,7 @@ export default function NoticeList() {
             </Row>
             <Row>
                 <Col>
-                    <NoticeTable />
+                    <NoticeTable page={page} />
                 </Col>
             </Row>
         </ >
