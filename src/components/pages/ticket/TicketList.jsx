@@ -12,7 +12,7 @@ import CUser from './../../../utils/helpers/CUser';
 
 export default function TicketList() {
     //local state
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);//modal
     const [page, setPage] = useState(1)
 
     //global state

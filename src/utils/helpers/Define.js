@@ -16,6 +16,7 @@ const Define = {
     TICKET_SNOOZED: "snoozed",
     TICKET_PAGE_SIZE: 10,
     //define
+    DEFAULT_PAGE_SIZE: 10,
     NOT_SET: "NOT_SET",
     C_USER: "STU_C_USER",
     //socket 
@@ -24,5 +25,9 @@ const Define = {
     CREATE_MESSAGE: "CREATE_MESSAGE",
     RECIEVE_MESSAGE: "RECIEVE_MESSAGE",
     DISCONNECT: "disconnect",
+    //type of skill
+    TYPE_SKILL_ADVANCED: "advanced",
+    TYPE_SKILL_INTERMIDIATE: "intermidiate",
+    TYPE_SKILL_BEGINNER: "beginner",
 }
 export default Define

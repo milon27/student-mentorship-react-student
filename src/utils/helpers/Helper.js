@@ -1,3 +1,5 @@
+import moment from "moment";
+import Define from './Define';
 const Helper = {
     validateField: (...arr) => {
         const n_arr = arr.filter(itm => {
@@ -10,7 +12,26 @@ const Helper = {
         } else {
             return false;//invalid all field
         }
-    }//validateField
+    },//validateField
+
+    getSlug: (title) => {
+        return title.replaceAll(" ", "-")
+    },
+    getTitleFromSlug: (slug) => {
+        return slug.replaceAll("-", " ")
+    },
+    getPercentage: (small, big) => {
+        if (big == 0) {
+            return 0.00
+        }
+        return (small / big * 100).toFixed(2);
+    },
+    getCurrentDate: () => {
+        return moment().format(
+            Define.FORMAT_DATE_NOTICE
+        )
+    }
+
 }
 
 export default Helper

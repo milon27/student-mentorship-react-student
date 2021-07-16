@@ -12,6 +12,9 @@
 .text-primary {
 	color: #0F243C !important;
 }
+.tab-content{
+  width: 100%;
+}
 
 /* loader */
 .loader {
@@ -43,10 +46,14 @@
     color: #FFF!important;
     font-weight: bold;
 }
+.nav-tabs .nav-link.active{
+    color: #6e707E!important;
+    font-weight: bold;
+}
 
 /* icon with image */
   .icon_width{
-    width: 40px;
+    width: 30px;
   }
 
 

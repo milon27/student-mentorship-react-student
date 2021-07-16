@@ -85,7 +85,7 @@ export default function TicketSummary() {
   }, []);
   return (
     <>
-      <Row className="p-4">
+      <Row >
         {/* Ticket Summary */}
         <div className="col-xl-4 col-sm-6 col-12 mb-3 mb-md-0">
           <Card className="shadow1">
@@ -102,7 +102,7 @@ export default function TicketSummary() {
                   </span>
                 </div>
                 <div className="shadow__total_pending">
-                  <h3>{summary.total_pending}</h3>
+                  <p>{summary.total_pending}</p>
                 </div>
               </div>
             </Card.Body>
@@ -118,7 +118,7 @@ export default function TicketSummary() {
                   </span>
                 </div>
                 <div className="shadow__total_pending">
-                  <h3>{summary.total_processing}</h3>
+                  <p>{summary.total_processing}</p>
                 </div>
               </div>
             </Card.Body>
@@ -134,7 +134,7 @@ export default function TicketSummary() {
                   </span>
                 </div>
                 <div className="shadow__total_pending">
-                  <h3>{summary.total_snoozed}</h3>
+                  <p>{summary.total_snoozed}</p>
                 </div>
               </div>
             </Card.Body>
@@ -150,7 +150,7 @@ export default function TicketSummary() {
                   </span>
                 </div>
                 <div className="shadow__total_pending">
-                  <h3>{summary.total_completed}</h3>
+                  <p>{summary.total_completed}</p>
                 </div>
               </div>
             </Card.Body>

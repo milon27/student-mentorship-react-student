@@ -40,6 +40,12 @@ export default function Sidebar() {
                     Options
                 </div>
                 <li className="nav-item ">
+                    <NavLink exact activeClassName="active" className="nav-link" to={URL.SKILL_LIST}>
+                        <i className="fas fa-fw fa-award"></i>
+                        <span>Skill List</span>
+                    </NavLink>
+                </li>
+                <li className="nav-item ">
                     <NavLink exact activeClassName="active" className="nav-link" to={URL.TICKET_LIST}>
                         <i className="fas fa-fw fa-award"></i>
                         <span>Ticket List</span>
@@ -74,7 +80,7 @@ export default function Sidebar() {
                         <span>Notice</span>
                     </NavLink>
                 </li>
-                
+
                 <hr className="sidebar-divider d-none d-md-block" />
 
                 <li className="nav-item ">

@@ -32,6 +32,11 @@ class ListAction {
               Response(true, "success", message, Define.BT_SUCCESS, response)
             );
           } else {
+            //dispatch the global state
+            this.dispatch({
+              type: Types.GET_DATA,
+              payload: [], //an array
+            });
             reject(new Error(message));
           }
         })
