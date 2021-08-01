@@ -8,11 +8,11 @@ import { Col, Row, Button } from 'react-bootstrap';
 import SkillTable from './SkillTable';
 import AxiosHelper from './../../../utils/helpers/AxiosHelper';
 import CUser from './../../../utils/helpers/CUser';
+import Helper from './../../../utils/helpers/Helper';
 
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import getPDFobj from './../../../utils/helpers/getPDFobj';
-import Helper from './../../../utils/helpers/Helper';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
