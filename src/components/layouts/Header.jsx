@@ -5,11 +5,15 @@ import AuthAction from './../../utils/context/actions/AuthAction';
 import URL from './../../utils/helpers/URL';
 import CUser from './../../utils/helpers/CUser';
 import { DispatchContext } from '../../utils/context/MainContext';
+import axios from 'axios';
+import AppAction from './../../utils/context/actions/AppAction';
+import Response from './../../utils/helpers/Response';
 
 export default function Header({ title }) {
 
     const history = useHistory()
-    const { authDispatch } = useContext(DispatchContext)
+    const { appDispatch, authDispatch } = useContext(DispatchContext)
+
 
     const logout = async (e) => {
         try {
@@ -17,6 +21,18 @@ export default function Header({ title }) {
             history.push(URL.SIGN_IN)
         } catch (e) {
             history.push(URL.SIGN_IN)
+        }
+    }
+
+    const getVlink = async () => {
+        try {
+            const id = CUser.getCurrentuser().id
+            const email = CUser.getCurrentuser().email
+            const res = await axios.get(`student/get-link/${id}/${email}`)
+            console.log(res.data);
+            new AppAction(appDispatch).SET_RESPONSE(Response(true, "Check email for link", res.data.message, "success"))
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -58,7 +74,7 @@ export default function Header({ title }) {
                             target="_blank"
                         >
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 ID: {CUser.getCurrentuser() && CUser.getCurrentuser().student_id}
+                            ID: {CUser.getCurrentuser() && CUser.getCurrentuser().student_id}
                         </Link>
                         <div className="dropdown-divider"></div>
 
@@ -67,19 +83,26 @@ export default function Header({ title }) {
                             target="_blank"
                         >
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 Phone: {CUser.getCurrentuser() && CUser.getCurrentuser().phone}
+                            Phone: {CUser.getCurrentuser() && CUser.getCurrentuser().phone}
                         </Link>
                         <div className="dropdown-divider"></div>
                         <Link className="dropdown-item" to={{ pathname: `mailto:${CUser.getCurrentuser() && CUser.getCurrentuser().email}` }}
                             target="_top">
                             <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                           Email: {CUser.getCurrentuser() && CUser.getCurrentuser().email}
+                            Email: {CUser.getCurrentuser() && CUser.getCurrentuser().email}
+
                         </Link>
+                        <div className="dropdown-divider"></div>
+
+                        <div className="dropdown-item" onClick={getVlink} >
+                            <i className="fas fa-shield-alt fa-sm fa-fw mr-2 "></i>
+                            {CUser.getCurrentuser() && CUser.getCurrentuser()?.is_verified == "0" ? "Verify Now" : "Varified."}
+                        </div>
                         <div className="dropdown-divider"></div>
 
                         <div className="dropdown-item" onClick={logout} >
                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                            Logout
                         </div>
                     </div>
                 </li>
