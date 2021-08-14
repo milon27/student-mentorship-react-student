@@ -64,7 +64,7 @@ export default function TicketList() {
             token.cancel()
         }
 
-    }, [ticket_list.length])
+    }, [ticket_list.length, page])
 
     return (
         <ProtectedPage>

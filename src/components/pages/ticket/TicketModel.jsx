@@ -34,6 +34,7 @@ export default function TicketModel({ show, setShow }) {
     //call api
     const listAction = new ListAction(ticket_listDispatch);
     const res = await listAction.addData("support/create-ticket", ticket);
+    setTicket(initTicket)
     appAction.SET_RESPONSE(res);
   };
 

@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <ProtectedPage>
             <Main title="Dashboard">
-                <TicketSummary />
+
                 <Row className="mt-2">
                     <Col>
                         <DashCard title="Career Plan" ><CareerDash /></DashCard>
@@ -23,6 +23,7 @@ export default function Home() {
                         <DashCard title="Coming Soon" />
                     </Col> */}
                 </Row>
+                <TicketSummary />
             </Main>
         </ProtectedPage >
     )
