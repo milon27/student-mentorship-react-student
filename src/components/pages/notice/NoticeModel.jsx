@@ -17,7 +17,7 @@ export default function NoticeModel({ show, setShow }) {
     publisher_id: CUser.getCurrentuser() && CUser.getCurrentuser().student_id,
     title: "",
     description: "",
-    created_at:""
+    created_at: ""
   };
   const [Notice, setNotice] = useState(initNotice);
 
@@ -36,7 +36,7 @@ export default function NoticeModel({ show, setShow }) {
     const listAction = new ListAction(notice_listDispatch);
     const res = await listAction.addData("notice/create", Notice);
     appAction.SET_RESPONSE(res);
-    setNotice((pState)=>({...pState,title:"",description:""}))
+    setNotice((pState) => ({ ...pState, title: "", description: "" }))
   };
 
   const onChange = (e) => {
