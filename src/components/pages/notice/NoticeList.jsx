@@ -45,9 +45,6 @@ export default function NoticeList() {
                     <Button className="mr-2" disabled>{page}</Button>
                     <Button className="mr-2" onClick={next}>Next</Button>
                 </Col>
-                <Col className="d-flex justify-content-end mb-3">
-                    {/* <Button onClick={() => { setShow(true) }}>Create New Notice</Button> */}
-                </Col>
             </Row>
             <Row>
                 <Col>

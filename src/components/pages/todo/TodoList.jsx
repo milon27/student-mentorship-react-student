@@ -49,6 +49,7 @@ export default function TodoList() {
       const load = async () => {
         try {
           if (uid) {
+            //todo/user id/ [completed=1][processing=0]
             await completeList.getAllTodos(`todo/${uid}/1`);
           }
         } catch (error) {

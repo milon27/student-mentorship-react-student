@@ -1,4 +1,3 @@
-import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import AppAction from "../../../utils/context/actions/AppAction";
@@ -9,7 +8,6 @@ import {
 import Define from "../../../utils/helpers/Define";
 import Todo from "./../../../utils/context/actions/TodoAction";
 import ShowingList from "./ShowingList";
-const currentDate = new Date();
 
 const TodoDone = ({ setStatus, status }) => {
   const [doneItem, setDoneItem] = useState({});
@@ -106,15 +104,13 @@ const TodoDone = ({ setStatus, status }) => {
                     defaultValue={doneItem.title}
                     disabled
                   />
-                  <br />
+                  {/* <br />
                   <input
                     className="todo_entry form-control"
                     type="text"
                     name="date"
-                    defaultValue={moment(currentDate).format(
-                      Define.FORMAT_DATE
-                    )}
-                  />
+                    defaultValue={doneItem.dead_line}
+                  /> */}
                   <br />
                   <textarea
                     rows="3"

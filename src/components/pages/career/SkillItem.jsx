@@ -6,7 +6,7 @@ import Helper from './../../../utils/helpers/Helper';
 
 export default function SkillItem({ skill }) {
     return (
-        <Col md={4}>
+        <Col md={4} className="mb-3">
             {console.log(skill)}
             <Card border="primary">
                 <Card.Header className=" p-1">

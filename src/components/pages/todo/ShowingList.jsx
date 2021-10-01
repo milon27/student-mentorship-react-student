@@ -5,15 +5,15 @@ import circleIcon from "../../../assets/img/circleIcon.webp";
 const ShowingList = ({ handleClick, item }) => {
   return (
     <>
-      <div 
-      className="d-flex justify-content-between Showing__TaskList pt-3"
-      onClick={() => handleClick(item)}
-      data-toggle="modal" 
-      data-target="#MarkEntryModal"
+      <div
+        className="d-flex justify-content-between Showing__TaskList pt-3"
+        onClick={() => handleClick(item)}
+        data-toggle="modal"
+        data-target="#MarkEntryModal"
       >
-        <div 
+        <div
         >
-            <img
+          <img
             className="todo_list__createButton__dateIcon"
             alt="Circular Icon"
             id="SE"
@@ -25,7 +25,7 @@ const ShowingList = ({ handleClick, item }) => {
         </div>
 
         <small>{moment(item.dead_line).format(Define.FORMAT_DATE)}</small>
-        
+
       </div>
     </>
   );

@@ -78,7 +78,7 @@ export default function NoticeTable({ page }) {
                   <tr key={item.id}>
                     <td>{item.id}</td>
                     <td>{item.title}</td>
-                    <td>{item.description}</td>
+                    <td>{item.description.toString().slice(0, 15) + "..."}</td>
                     <td>
                       {moment(item.created_at).format(Define.FORMAT_DATE)}
                     </td>
