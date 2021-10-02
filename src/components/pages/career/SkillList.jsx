@@ -47,6 +47,7 @@ export default function SkillList() {
             console.log(res)
             makePdf(res.object)
         } else {
+            alert(res.desc + " please give some test to generate report!")
             console.log(res)
         }
     }
